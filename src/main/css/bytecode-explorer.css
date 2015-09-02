@@ -1,0 +1,129 @@
+.instruction-panel {
+    height:800px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+.byte-panel {
+    height:800px;
+    width:460px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    cursor: default;
+}
+
+#bytes tr td {
+    color: #000000;
+//    background-color: #EAF2D3;
+//    border: 1px solid green;
+}
+
+.selected-section {
+    background-color: yellow;
+}
+
+.preserved-section {
+    background-color: light-green;
+}
+
+.default-section {
+    background-color:white;
+}
+
+.constant-pool-section {
+    background-color: pink;
+}
+
+.tab {
+    padding-left: 2em;
+}
+
+.access-table-mapped {
+    width: 50px;
+    vertical-align: text-top;
+}
+
+.access-table-desc {
+    width: 150px;
+    vertical-align: text-top;
+}
+
+.access-table-mask {
+    width: 75px;
+    vertical-align: text-top;
+}
+
+.access-table-bold {
+    font-weight:bold;
+}
+
+.access-table-dull {
+    color: grey;
+}
+
+.decompile-row {
+//    padding-right:8px;
+    text-align:right;
+    width:30px;
+//    line-height:.75 !important;
+}
+
+.decompile-byte {
+//    padding-right:8px;
+    width:30px;
+//    line-height:.75 !important;
+}
+
+.decompile-instruction {
+//    padding-right:8px;
+    width:30px;
+//    line-height:.75 !important;
+}
+
+.decompile-args {
+}
+
+.magic-number-section {
+    background-color:lightpink;
+}
+
+.build-section {
+    background-color:lightblue;
+}
+
+.count-section {
+    background-color:lightgreen;
+}
+
+.method-ref-section {
+    background-color:lightcoral;
+}
+
+.class-section {
+    background-color:lightpink;
+}
+
+.ref-section {
+    background-color:lightblue;
+}
+
+.float-section {
+    background-color:lightcoral;
+}
+
+.string-section {
+    background-color:pink;
+}
+
+.utf8-section {
+    background-color:white;
+}
+
+.name-and-type-section {
+    background-color:lightpink;
+}
+
+.be-col1 {
+    width:56px;
+}
+

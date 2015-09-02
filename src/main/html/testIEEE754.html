@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script>
+  function convertToDecimal(value) {
+    if(value == 0) {
+        return 0;
+    }
+    else if(value == 0x7f800000) {
+        return Infinity;
+    }
+    else if(value == 0xff800000) {
+        return -Infinity;
+    }
+    else if(value == 0x7fffffff) {
+        return NaN;
+    }
+    else if(value == 0xffffffff) {
+        return -NaN;
+    }
+    var signBit = (value >> 31) & 0x01;
+
+    var exponent = value >> 23;
+    exponent = exponent & 0xFF; // remove the sign bit then subtract 127
+    exponent -= 127;
+
+    var mantissa = 0
+    var mantissaBits = value & 0x7fffff
+    var divisor = 2;
+    for(var i = 22; i >=0; i--) {
+        var nextBit = (mantissaBits >> i) & 0x1;
+        mantissa += nextBit/divisor;
+        divisor *= 2;
+    }
+    if(exponent != -127) {
+        // normalized form
+        mantissa += 1;
+    }
+    else {
+        // denormalized form
+        mantissa *=2;
+    }
+
+    var rval = Math.pow(2,exponent) * mantissa;
+
+    if(signBit == 1) {
+        rval = - rval;
+    }
+    return rval;
+}
+
+    alert("0" + convertToDecimal(0x41880000));
+/*
+    alert("123:" + convertToDecimal(0x42f60000));
+
+    alert("vx:" + convertToDecimal(0x00400000) + " expect 5.8774717541114375E-39");
+    alert("0" + convertToDecimal(0));
+    alert("NaN " + convertToDecimal(0x7fffffff));
+    alert("-NaN " + convertToDecimal(0xffffffff));
+    alert("Infinity " +  convertToDecimal(0x7f800000));
+    alert("-Infinity " + convertToDecimal(0xff800000));
+  */
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>
