@@ -11,3 +11,5 @@ This is intended to help users understand the organization of bytecode.
 ## Goals
 Eventually I would like to finish translating this to Java, with the purpose of creating an agent to execute the desired code in the JVM and
 monitor the stack and program registers. Some of that work has already been started and the code is in the src/main/java directory.
+
+&copy; Victor Grazi 2015
