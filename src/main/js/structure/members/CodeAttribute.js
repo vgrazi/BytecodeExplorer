@@ -77,11 +77,12 @@ function CodeAttribute(bytesArray, index) {
      this.getBytecode = function (index, constants) {
 //     todo: encode attributes, etc
         var rval =
-            formatAsFourByteHexString(attributeLength) + " Attribute length: " + attributeLength + "<br/>" +
-            formatAsHexString(maxStack) + " Max stack: " + maxStack + "<br/>" +
-            formatAsHexString(maxLocals) + " Max locals: " + maxLocals + "<br/>" +
-            formatAsFourByteHexString(codeLength) + " Code length: " + codeLength + "<br/>" +
-            decompile(codeIndex, bytesArray, codeLength);
+        "<table>" +
+            "<tr><td class='method-byte-address'>" + formatAsFourByteHexString(startByteIndex + 2)  + "</td><td class='method-byte-address'>" + formatAsFourByteHexString(attributeLength) + "</td><td>" + " Attribute length: " + attributeLength + "</td></tr>" +
+            "<tr><td class='method-byte-address'>" + formatAsFourByteHexString(startByteIndex + 6)  + "</td><td class='method-byte-address'>" + formatAsHexString(maxStack) + "</td><td>" + " Max stack: " + maxStack + "</td></tr>" +
+            "<tr><td class='method-byte-address'>" + formatAsFourByteHexString(startByteIndex + 8)  + "</td><td class='method-byte-address'>" + formatAsHexString(maxLocals) + "</td><td>" + " Max locals: " + maxLocals + "</td></tr>" +
+            "<tr><td class='method-byte-address'>" + formatAsFourByteHexString(startByteIndex + 10) + "</td><td class='method-byte-address'>" + formatAsFourByteHexString(codeLength) + "</td><td>" + " Code length: " + codeLength + "</td></tr>" +
+        "</table>" + decompile(codeIndex, bytesArray, codeLength);
         return rval;
      }
 }

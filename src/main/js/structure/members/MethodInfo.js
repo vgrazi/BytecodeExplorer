@@ -50,11 +50,13 @@ function MethodInfo(bytesArray, startByteIndex) {
      this.getBytecode = function (index, constants) {
         var descriptor = getDirectString(descriptorIndex, constants);
         var lookup = null;
-        var rval = "Method: <br/>" +
-        formatAsHexString(accessFlags) + " Access flags:" + formatAsBinaryString(accessFlags) + "</br>" +
-        formatAsHexString(nameIndex) + " #" + nameIndex + " " + getDirectString(nameIndex, constants) + "<br/>" +
-        formatAsHexString(descriptorIndex) + " #" + descriptorIndex + " " + descriptor + "<br/>" +
-        formatAsHexString(attributesCount) + " Attributes count: " + attributesCount + "<br/>";
+        var rval = "Method:<br/>" +
+        "<table>" +
+            "<tr><td class='method-byte-address'>" + formatAsFourByteHexString(startByteIndex + 0) + "</td><td class='method-byte-address'>" + formatAsHexString(accessFlags) + "</td><td>Access flags:" + formatAsBinaryString(accessFlags) + "</td></tr>" +
+            "<tr><td class='method-byte-address'>" + formatAsFourByteHexString(startByteIndex + 2) + "</td><td class='method-byte-address'>" + formatAsHexString(nameIndex) + "</td><td>#" + nameIndex + " " + getDirectString(nameIndex, constants) + "</td></tr>" +
+            "<tr><td class='method-byte-address'>" + formatAsFourByteHexString(startByteIndex + 4) + "</td><td class='method-byte-address'>" + formatAsHexString(descriptorIndex) + "</td><td>#" + descriptorIndex + " " + descriptor + "</td></tr>" +
+            "<tr><td class='method-byte-address'>" + formatAsFourByteHexString(startByteIndex + 6) + "</td><td class='method-byte-address'>" + formatAsHexString(attributesCount) + "</td><td>Attributes count: " + attributesCount + "</td></tr>";
+        + "</table><br/>";
         for(var i = 0; i < attributes.length; i++) {
             var attribute = attributes[i];
             rval += attribute.getBytecode(startByteIndex, constants) + "<br/>";

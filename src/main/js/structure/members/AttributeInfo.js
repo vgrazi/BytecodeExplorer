@@ -26,7 +26,7 @@ function AttributeInfo(bytesArray, index) {
             var codeAttribute = new CodeAttribute(bytesArray, index)
             code = codeAttribute.getBytecode(index, constants);
         }
-        return formatAsHexString(nameIndex) + " @" + attributeName + "<br/>" + code;
+        return "<table><tr><td class='method-byte-address'>" + formatAsFourByteHexString(index) + "</td><td class='method-byte-address'>" + formatAsHexString(nameIndex) + "</td><td>@" + attributeName + "</td></tr></table>" + code;
      }
 
      this.getReferenceIndex = function() {
