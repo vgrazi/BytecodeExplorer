@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Created by vgrazi on 8/13/15.
  */
-public class ConstantInterfaceRef implements ConstantType {
+public class ConstantInterfaceRef extends ConstantType {
     private int startByteIndex;
     private int classIndex;
     private int nameAndTypeIndex;
@@ -62,15 +62,5 @@ public class ConstantInterfaceRef implements ConstantType {
     @Override
     public int getStartByteIndex() {
         return startByteIndex;
-    }
-
-    @Override
-    public Object clone() {
-        try {
-            return super.clone();
-        } catch (CloneNotSupportedException e) {
-            e.printStackTrace();
-            return null;
-        }
     }
 }

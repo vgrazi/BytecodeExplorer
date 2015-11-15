@@ -37,11 +37,21 @@ public class ConstantPoolSection implements ClassFileSection {
         Utils.printConstants(constants);
     }
 
-    /**
-     * How many elements in this section
-     *
-     * @return Number of elements in this section
-     */
+    public int getSectionIndex(int byteIndex) {
+        for(int i = 0; i < constants.size(); i++) {
+            ConstantType constant = constants.get(i);
+            if(constant.contains(byteIndex)) {
+                return i;
+            }
+        }
+        return 0;
+    }
+
+        /**
+         * How many elements in this section
+         *
+         * @return Number of elements in this section
+         */
     @Override
     public int elementCount() {
         return elementCount;

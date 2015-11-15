@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by vgrazi on 8/13/15.
  */
-public class ConstantFloat implements ConstantType {
+public class ConstantFloat extends ConstantType {
     private int startByteIndex;
     private int classIndex;
     private int nameAndTypeIndex;
@@ -37,13 +37,8 @@ public class ConstantFloat implements ConstantType {
         long exponent = IEEE754Converter.extractExponent(IEE754);
         long mantissa = IEEE754Converter.extractMantissa(IEE754, exponent);
         long mantissaBytes = IEEE754Converter.extractMantissaBytes(IEE754);
-        // todo: move this explanation calc to IEEE754Converter
-        String explanation = Utils.formatAsFourByteHexString(signBit) + " sign bit:" + signBit + "<br/>" +
-            Utils.formatAsFourByteHexString(exponent+127) + " exponent:" + (exponent+127) + "-127=" + exponent +"<br/>" +
-            Utils.formatAsFourByteHexString(mantissaBytes) + " mantissa:" + mantissa + "<br/><span class='tab'>&nbsp;</span>" +
-            + value + " = " + (signBit == 1 ?"-1":"+1") + " * 2^" + exponent + " * " + mantissa
-            ;
-
+        String explanation = IEEE754Converter.getExplanation(value, signBit, exponent, mantissa, mantissaBytes);
+        // todo: continue here
     }
 
     @Override
@@ -79,15 +74,5 @@ public class ConstantFloat implements ConstantType {
     @Override
     public int getStartByteIndex() {
         return startByteIndex;
-    }
-
-    @Override
-    public Object clone() {
-        try {
-            return super.clone();
-        } catch (CloneNotSupportedException e) {
-            e.printStackTrace();
-            return null;
-        }
     }
 }

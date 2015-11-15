@@ -30,4 +30,8 @@ public class MagicNumberSection implements ClassFileSection {
     public int getStartByteIndex() {
         return 0;
     }
+
+    public boolean contains(int startByteIndex) {
+        return startByteIndex >= getStartByteIndex() && startByteIndex < getStartByteIndex() + length();
+    }
 }

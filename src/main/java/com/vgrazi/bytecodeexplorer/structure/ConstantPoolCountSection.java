@@ -47,4 +47,8 @@ public class ConstantPoolCountSection implements ClassFileSection {
     public int getStartByteIndex() {
         return 8;
     }
+
+    public boolean contains(int startByteIndex) {
+        return startByteIndex >= getStartByteIndex() && startByteIndex < getStartByteIndex() + length();
+    }
 }

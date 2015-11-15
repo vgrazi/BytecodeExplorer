@@ -135,11 +135,8 @@ public class BytecodeRenderer {
         hexScrollPane.setCorner(JScrollPane.UPPER_LEFT_CORNER, corner);
 
         for(int i = 0; i < TABLE_COLUMNS; i++) {
-            hexTable.getColumnModel().getColumn(i).setCellRenderer(new BytecodeExplorerCellRenderer());
+            hexTable.getColumnModel().getColumn(i).setCellRenderer(new BytecodeExplorerCellRenderer(classFile));
         }
-
-        Component cellRenderer = hexTable.getCellRenderer(2, 2)
-            .getTableCellRendererComponent(hexTable, "xxx", false, false, 2, 2);
 
     }
 

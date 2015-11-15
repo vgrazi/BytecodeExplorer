@@ -88,4 +88,10 @@ Mantisa = 1 + sum(a(n)/(2^n))
         return mantissa;
     }
 
+    public static String getExplanation(double value, byte signBit, long exponent, long mantissa, long mantissaBytes) {
+        return Utils.formatAsFourByteHexString(signBit) + " sign bit:" + signBit + "<br/>" +
+            Utils.formatAsFourByteHexString(exponent+127) + " exponent:" + (exponent+127) + "-127=" + exponent +"<br/>" +
+            Utils.formatAsFourByteHexString(mantissaBytes) + " mantissa:" + mantissa + "<br/><span class='tab'>&nbsp;</span>" +
+            + value + " = " + (signBit == 1 ?"-1":"+1") + " * 2^" + exponent + " * " + mantissa;
+    }
 }

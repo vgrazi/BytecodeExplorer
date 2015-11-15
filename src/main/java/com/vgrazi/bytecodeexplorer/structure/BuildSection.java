@@ -28,4 +28,8 @@ public class BuildSection implements ClassFileSection {
     public int getStartByteIndex() {
         return startByte;
     }
+
+    public boolean contains(int startByteIndex) {
+        return startByteIndex >= getStartByteIndex() && startByteIndex < getStartByteIndex() + length();
+    }
 }

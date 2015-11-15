@@ -37,4 +37,30 @@ public class ClassFile {
         // first determine the section, then handle appropriately
         return "";
     }
+
+    /**
+     * Used mostly for color coding the sections of the hex table, the section number starts at 0 and sequences
+     * for each section, so magic number is section 0, minor build section 1, major=section 2, then the sections within the constant
+     * pool continue from there in sequence.
+     * @param byteIndex The index in the classfile of the byte we are checking
+     */
+    public int getSectionIndex(int byteIndex) {
+        if(magicNumberSection.contains(byteIndex)) {
+            return 0;
+        }
+        else if(minorBuildSection.contains(byteIndex)) {
+            return 1;
+        }
+        else if(majorBuildSection.contains(byteIndex)) {
+            return 2;
+        }
+        else if(constantPoolCountSection.contains(byteIndex)) {
+            return 3;
+        }
+        else {
+            // todo continue
+            return constantPoolSection.getSectionIndex(byteIndex);
+        }
+
+    }
 }

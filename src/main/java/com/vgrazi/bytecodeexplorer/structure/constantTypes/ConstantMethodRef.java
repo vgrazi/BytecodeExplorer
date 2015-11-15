@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Created by vgrazi on 8/13/15.
  */
-public class ConstantMethodRef implements ConstantType {
+public class ConstantMethodRef extends ConstantType {
     private int startByteIndex;
     private int classIndex;
     private int nameAndTypeIndex;
@@ -66,13 +66,4 @@ public class ConstantMethodRef implements ConstantType {
         return startByteIndex;
     }
 
-    @Override
-    public Object clone() {
-        try {
-            return super.clone();
-        } catch (CloneNotSupportedException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
 }

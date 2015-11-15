@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Created by vgrazi on 8/13/15.
  */
-public class ConstantUTF8  implements ConstantType {
+public class ConstantUTF8 extends ConstantType {
 
     private int startByteIndex;
     private int stringLength;
@@ -67,16 +67,6 @@ public class ConstantUTF8  implements ConstantType {
     @Override
     public String toString(List<ConstantType> constants) {
         return toString();
-    }
-
-    @Override
-    public Object clone() {
-        try {
-            return super.clone();
-        } catch (CloneNotSupportedException e) {
-            e.printStackTrace();
-            return null;
-        }
     }
 }
 

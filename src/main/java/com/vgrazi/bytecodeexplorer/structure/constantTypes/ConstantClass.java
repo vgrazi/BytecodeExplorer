@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Created by vgrazi on 8/13/15.
  */
-public class ConstantClass implements ConstantType {
+public class ConstantClass extends ConstantType {
 
     private int startByteIndex;
     private int nameIndex;
@@ -62,14 +62,4 @@ public class ConstantClass implements ConstantType {
         return 0;
     }
 
-
-    @Override
-    public Object clone() {
-        try {
-            return super.clone();
-        } catch (CloneNotSupportedException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
 }
