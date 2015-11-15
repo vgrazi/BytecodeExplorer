@@ -1,6 +1,6 @@
 package com.vgrazi.bytecodeexplorer.structure.constantTypes;
 
-import com.vgrazi.bytecodeexplorer.util.Utils;
+import com.vgrazi.bytecodeexplorer.utils.Utils;
 
 import java.util.List;
 

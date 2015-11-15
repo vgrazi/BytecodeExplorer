@@ -1,6 +1,6 @@
 package com.vgrazi.bytecodeexplorer.structure.constantTypes;
 
-import com.vgrazi.bytecodeexplorer.util.Utils;
+import com.vgrazi.bytecodeexplorer.utils.Utils;
 
 import java.util.List;
 
@@ -12,10 +12,6 @@ public class ConstantNameAndTypeInfo implements ConstantType {
     private int startByteIndex;
     private int nameIndex;
     private int descriptorIndex;
-
-    public ConstantNameAndTypeInfo() {
-
-    }
 
     /**
      * "tag item" is how the documentation refers to the type byte

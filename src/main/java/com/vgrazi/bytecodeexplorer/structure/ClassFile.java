@@ -7,20 +7,22 @@ package com.vgrazi.bytecodeexplorer.structure;
 public class ClassFile {
     private final byte[] bytes;
     private MagicNumberSection magicNumberSection;
-    private MajorBuildSection majorBuildSection;
-    private MinorBuildSection minorBuildSection;
+    private BuildSection majorBuildSection;
+    private BuildSection minorBuildSection;
     private ConstantPoolCountSection constantPoolCountSection;
     private ConstantPoolSection constantPoolSection;
 
     public ClassFile(byte[] bytes) {
         this.bytes = bytes;
         magicNumberSection = new MagicNumberSection(bytes);
-        minorBuildSection = new MinorBuildSection(bytes);
-        majorBuildSection = new MajorBuildSection(bytes);
+        minorBuildSection = new BuildSection(bytes, 4);
+        majorBuildSection = new BuildSection(bytes, 6);
         constantPoolCountSection = new ConstantPoolCountSection(bytes);
         constantPoolSection = new ConstantPoolSection(constantPoolCountSection.getPoolSizeBytes(), bytes, 10);
+    }
 
-          int debug = 0;
+    public byte[] getBytes() {
+        return bytes;
     }
 
     public int length() {

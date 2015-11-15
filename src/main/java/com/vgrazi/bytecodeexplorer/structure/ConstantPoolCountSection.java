@@ -1,6 +1,6 @@
 package com.vgrazi.bytecodeexplorer.structure;
 
-import com.vgrazi.bytecodeexplorer.util.Utils;
+import com.vgrazi.bytecodeexplorer.utils.Utils;
 
 /**
  * Created by vgrazi on 8/13/15.

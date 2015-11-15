@@ -1,6 +1,6 @@
 package com.vgrazi.bytecodeexplorer.structure.constantTypes;
 
-import com.vgrazi.bytecodeexplorer.util.Utils;
+import com.vgrazi.bytecodeexplorer.utils.Utils;
 
 import java.util.List;
 
@@ -11,10 +11,6 @@ public class ConstantClass implements ConstantType {
 
     private int startByteIndex;
     private int nameIndex;
-
-    public ConstantClass() {
-
-    }
 
     /**
      * "tag item" is how the documentation refers to the type byte

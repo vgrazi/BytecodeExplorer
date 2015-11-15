@@ -7,6 +7,26 @@
     <groupId>com.vgrazi.bytecode-explorer</groupId>
     <artifactId>bytecode-explorer</artifactId>
     <version>1.0.0-SNAPSHOT</version>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <code.level>1.8</code.level>
+        <version.plugin.compiler>3.1</version.plugin.compiler>
+    </properties>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${version.plugin.compiler}</version>
+                <inherited>true</inherited>
+                <configuration>
+                    <source>${code.level}</source>
+                    <target>${code.level}</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 
 </project>

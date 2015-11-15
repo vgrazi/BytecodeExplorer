@@ -1,8 +1,8 @@
 package com.vgrazi.bytecodeexplorer.structure;
 
 import com.vgrazi.bytecodeexplorer.structure.constantTypes.ConstantType;
-import com.vgrazi.bytecodeexplorer.util.ConstantTypeFactory;
-import com.vgrazi.bytecodeexplorer.util.Utils;
+import com.vgrazi.bytecodeexplorer.utils.ConstantTypeFactory;
+import com.vgrazi.bytecodeexplorer.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;

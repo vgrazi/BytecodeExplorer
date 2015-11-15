@@ -1,6 +1,7 @@
 package com.vgrazi.bytecodeexplorer;
 
 import com.vgrazi.bytecodeexplorer.structure.ClassFile;
+import com.vgrazi.bytecodeexplorer.ui.swing.BytecodeRenderer;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -24,7 +25,7 @@ public class BytecodeExplorer {
         byte[] bytes = Files.readAllBytes(Paths.get(file));
 
         classFile = new ClassFile(bytes);
-
+        new BytecodeRenderer(classFile);
     }
 
     public ClassFile getClassFile() {
