@@ -9,24 +9,44 @@ import java.awt.*;
 /**
  * Created by vgrazi on 11/14/15.
  */
-public class BytecodeExplorerCellRenderer extends DefaultTableCellRenderer{
+public class BytecodeExplorerCellRenderer extends DefaultTableCellRenderer {
+    static final int TABLE_COLUMNS = 16;
     private ClassFile classFile;
+    private static Color[] colors;
+
+    //    private static Color[] backgroundColors = new Color[]{Color.pink, Color.yellow, Color.ORANGE, Color.LIGHT_GRAY, Color.white};
+    private static final Color[] backgroundColors = new Color[]{Color.LIGHT_GRAY, Color.white};
+
 
     public BytecodeExplorerCellRenderer(ClassFile classFile) {
 
         this.classFile = classFile;
     }
 
-//    private static Color[] backgroundColors = new Color[]{Color.pink, Color.yellow, Color.ORANGE, Color.LIGHT_GRAY, Color.white};
-    private static Color[] backgroundColors = new Color[]{Color.LIGHT_GRAY, Color.white};
+    /**
+     * Call this once before instantiating any of these cell renderers
+     * @param classFile
+     */
+    public static void populateColors(ClassFile classFile) {
+        colors = new Color[classFile.length()];
+        System.out.println("Colors.length:" + colors.length);
+        for (int i = 0; i < colors.length; i++) {
+            int sectionIndex = classFile.getSectionIndex(i);
+            colors[i] = backgroundColors[sectionIndex % backgroundColors.length];
+        }
+    }
+
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
         Component component = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-        // todo: don't hardcode 16, refer to the TABLE_COLUMNS
-        int byteIndex = row * 16 + column;
-        int sectionIndex = classFile.getSectionIndex(byteIndex);
-        Color color = backgroundColors[sectionIndex%backgroundColors.length];
-
+        int byteIndex = row * TABLE_COLUMNS + column;
+        Color color;
+        if (byteIndex < colors.length) {
+            color = colors[byteIndex];
+        }
+        else {
+            color = Color.white;
+        }
         component.setBackground(color);
         return component;
     }
