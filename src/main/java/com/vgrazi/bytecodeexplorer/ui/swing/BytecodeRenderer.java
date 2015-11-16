@@ -10,6 +10,8 @@ import java.awt.*;
 public class BytecodeRenderer {
 
     public static final int TABLE_WIDTH_PX = 450;
+    private final JLabel instructionPanel = new JLabel();
+
 
     private final ClassFile classFile;
 
@@ -28,6 +30,8 @@ public class BytecodeRenderer {
         JTable rowLabelTable = new JTable();
         addDataToHexTable(hexTable, rowLabelTable);
 
+        addInstructionRenderer(hexTable);
+
         // construct the frame
         JFrame frame = createFrame();
 
@@ -37,8 +41,14 @@ public class BytecodeRenderer {
         // add the instruction panel to the frame
         addInstructionPanel(frame);
 
+
         // refresh the layout
+        hexTable.doLayout();
         frame.getContentPane().doLayout();
+    }
+
+    private void addInstructionRenderer(JTable hexTable) {
+        hexTable.addMouseMotionListener(new InstructionRenderer(classFile, hexTable, instructionPanel));
     }
 
     private JFrame createFrame() {
@@ -65,14 +75,14 @@ public class BytecodeRenderer {
         frame.pack();
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int pos = 50;
-        frame.setBounds(pos, pos, screenSize.width - pos * 2, screenSize.height- pos*2);
+        frame.setBounds(pos, pos, screenSize.width - pos * 2, screenSize.height - pos * 2);
         frame.setVisible(true);
         return frame;
     }
 
     private void addInstructionPanel(JFrame frame) {
-        JPanel instructionPanel = new JPanel();
         instructionPanel.setLayout(new BoxLayout(instructionPanel, BoxLayout.Y_AXIS));
+        instructionPanel.setVerticalAlignment(SwingConstants.TOP);
 
         instructionPanel.setBackground(Color.YELLOW);
         final JScrollPane instructionScrollPane = new JScrollPane();
@@ -106,7 +116,7 @@ public class BytecodeRenderer {
         corner.setFont(header.getFont());
         hexScrollPane.setCorner(JScrollPane.UPPER_LEFT_CORNER, corner);
         BytecodeExplorerCellRenderer.populateColors(classFile);
-        for(int i = 0; i < BytecodeExplorerCellRenderer.TABLE_COLUMNS; i++) {
+        for (int i = 0; i < BytecodeExplorerCellRenderer.TABLE_COLUMNS; i++) {
             hexTable.getColumnModel().getColumn(i).setCellRenderer(new BytecodeExplorerCellRenderer(classFile));
         }
     }
@@ -116,22 +126,22 @@ public class BytecodeRenderer {
      */
     private void addDataToHexTable(JTable hexTable, JTable rowLabelTable) {
         byte[] bytes = classFile.getBytes();
-        int rows = bytes.length/ BytecodeExplorerCellRenderer.TABLE_COLUMNS;
+        int rows = bytes.length / BytecodeExplorerCellRenderer.TABLE_COLUMNS;
 
-        if(rows * BytecodeExplorerCellRenderer.TABLE_COLUMNS < bytes.length) {
+        if (rows * BytecodeExplorerCellRenderer.TABLE_COLUMNS < bytes.length) {
             // make room for remaining bytes
             rows = rows + 1;
         }
 
         // first set the names
         Object[] names = new Object[BytecodeExplorerCellRenderer.TABLE_COLUMNS];
-        for(int i = 0; i < names.length; i++) {
+        for (int i = 0; i < names.length; i++) {
             names[i] = String.format("%02X", i);
         }
 
         // Next set the data
         Object[][] data = new Object[rows][BytecodeExplorerCellRenderer.TABLE_COLUMNS];
-        for(int i = 0; i < bytes.length; i++) {
+        for (int i = 0; i < bytes.length; i++) {
             int row = i / BytecodeExplorerCellRenderer.TABLE_COLUMNS;
             int col = i % BytecodeExplorerCellRenderer.TABLE_COLUMNS;
             data[row][col] = String.format("%02X ", bytes[i]);
@@ -141,7 +151,7 @@ public class BytecodeRenderer {
 
         // Now set the row labels
         Object[][] rowLabelData = new Object[hexTable.getRowCount()][1];
-        for(int i = 0; i < hexTable.getRowCount(); i++) {
+        for (int i = 0; i < hexTable.getRowCount(); i++) {
             String formatted = String.format("%02X", i);
             rowLabelData[i][0] = formatted;
         }

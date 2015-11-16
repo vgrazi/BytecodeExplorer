@@ -89,4 +89,12 @@ public class ConstantPoolSection implements ClassFileSection {
     public int getNextByteIndex() {
         return 0;
     }
+
+    public ClassFileSection getSection(int byteIndex) {
+        ConstantType type = null;
+        if (byteIndex < constants.size()) {
+            type = constants.get(byteIndex);
+        }
+        return type;
+    }
 }

@@ -35,7 +35,11 @@ public class ClassFile {
 
     public String getInstructionSequence(int hoverByteIndex) {
         // first determine the section, then handle appropriately
-        return "";
+        ClassFileSection section = getSection(hoverByteIndex);
+        if(section != null) {
+            return section.toString();
+        }
+        return "unknown";
     }
 
     /**
@@ -60,6 +64,32 @@ public class ClassFile {
         else {
             // todo continue
             return constantPoolSection.getSectionIndex(byteIndex);
+        }
+
+    }
+
+    /**
+     * Used mostly for color coding the sections of the hex table, the section number starts at 0 and sequences
+     * for each section, so magic number is section 0, minor build section 1, major=section 2, then the sections within the constant
+     * pool continue from there in sequence.
+     * @param byteIndex The index in the classfile of the byte we are checking
+     */
+    public ClassFileSection getSection(int byteIndex) {
+        if(magicNumberSection.contains(byteIndex)) {
+            return magicNumberSection;
+        }
+        else if(minorBuildSection.contains(byteIndex)) {
+            return minorBuildSection;
+        }
+        else if(majorBuildSection.contains(byteIndex)) {
+            return majorBuildSection;
+        }
+        else if(constantPoolCountSection.contains(byteIndex)) {
+            return constantPoolCountSection;
+        }
+        else {
+            // todo continue
+            return constantPoolSection.getSection(byteIndex);
         }
 
     }

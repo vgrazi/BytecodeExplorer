@@ -1,11 +1,13 @@
 package com.vgrazi.bytecodeexplorer.structure.constantTypes;
 
+import com.vgrazi.bytecodeexplorer.structure.ClassFileSection;
+
 import java.util.List;
 
 /**
  * Created by vgrazi on 11/15/15.
  */
-public abstract class ConstantType implements Cloneable{
+public abstract class ConstantType implements ClassFileSection, Cloneable{
 
 
     public boolean contains(int byteIndex) {
