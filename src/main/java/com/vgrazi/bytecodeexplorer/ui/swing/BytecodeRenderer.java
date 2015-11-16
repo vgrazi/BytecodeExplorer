@@ -11,9 +11,6 @@ public class BytecodeRenderer {
 
     public static final int TABLE_WIDTH_PX = 450;
 
-    private final JScrollPane hexScrollPane = new JScrollPane();
-    private final JScrollPane instructionScrollPane = new JScrollPane();
-
     private final ClassFile classFile;
 
     public BytecodeRenderer(ClassFile classFile) {
@@ -78,9 +75,9 @@ public class BytecodeRenderer {
         instructionPanel.setLayout(new BoxLayout(instructionPanel, BoxLayout.Y_AXIS));
 
         instructionPanel.setBackground(Color.YELLOW);
+        final JScrollPane instructionScrollPane = new JScrollPane();
         instructionScrollPane.setViewportView(instructionPanel);
         frame.getContentPane().add(instructionScrollPane);
-        instructionScrollPane.doLayout();
     }
 
     private void addHexTable(JFrame frame, JTable hexTable, JTable rowLabelTable) {
@@ -89,10 +86,29 @@ public class BytecodeRenderer {
         panel.add(BorderLayout.WEST, rowLabelTable);
         panel.add(BorderLayout.CENTER, hexTable);
 
+        JScrollPane hexScrollPane = new JScrollPane();
         hexScrollPane.getViewport().setView(hexTable);
+
+        // our layout manager expects the hex scrollpane to be the first component, so add it at position 0
         frame.getContentPane().add(hexScrollPane, 0);
-        hexTable.setBackground(Color.cyan);
-        addHexTable(hexTable, rowLabelTable);
+
+        rowLabelTable.setEnabled(false);
+
+        JTableHeader header = hexTable.getTableHeader();
+        rowLabelTable.setBackground(header.getBackground());
+        rowLabelTable.setFont(header.getFont());
+
+        JViewport viewport = new JViewport();
+        viewport.setView(rowLabelTable);
+        viewport.setPreferredSize(new Dimension(27, rowLabelTable.getPreferredSize().height));
+        hexScrollPane.setRowHeaderView(viewport);
+        JLabel corner = new JLabel("Row");
+        corner.setFont(header.getFont());
+        hexScrollPane.setCorner(JScrollPane.UPPER_LEFT_CORNER, corner);
+        BytecodeExplorerCellRenderer.populateColors(classFile);
+        for(int i = 0; i < BytecodeExplorerCellRenderer.TABLE_COLUMNS; i++) {
+            hexTable.getColumnModel().getColumn(i).setCellRenderer(new BytecodeExplorerCellRenderer(classFile));
+        }
     }
 
     /**
@@ -132,23 +148,4 @@ public class BytecodeRenderer {
         rowLabelTable.setModel(new DefaultTableModel(rowLabelData, new String[]{"Row"}));
     }
 
-    private void addHexTable(JTable hexTable, JTable rowLabelTable) {
-        rowLabelTable.setEnabled(false);
-
-        JTableHeader header = hexTable.getTableHeader();
-        rowLabelTable.setBackground(header.getBackground());
-        rowLabelTable.setFont(header.getFont());
-
-        JViewport viewport = new JViewport();
-        viewport.setView(rowLabelTable);
-        viewport.setPreferredSize(new Dimension(27, rowLabelTable.getPreferredSize().height));
-        hexScrollPane.setRowHeaderView(viewport);
-        JLabel corner = new JLabel("Row");
-        corner.setFont(header.getFont());
-        hexScrollPane.setCorner(JScrollPane.UPPER_LEFT_CORNER, corner);
-        BytecodeExplorerCellRenderer.populateColors(classFile);
-        for(int i = 0; i < BytecodeExplorerCellRenderer.TABLE_COLUMNS; i++) {
-            hexTable.getColumnModel().getColumn(i).setCellRenderer(new BytecodeExplorerCellRenderer(classFile));
-        }
-    }
 }
