@@ -30,9 +30,9 @@ public class ConstantClass extends ConstantType {
     @Override
     public String toString() {
         List<ConstantType> constants = getConstants();
-        String string = "";
+        String string = Utils.formatAsFourByteHexString(startByteIndex) + " Class #" + nameIndex;
         if (constants != null) {
-            string = Utils.formatAsFourByteHexString(startByteIndex) + " Class #" + nameIndex + "<br/>" +
+            string += "<br/>" +
                 " " + constants.get(nameIndex -1);
         }
         return string;

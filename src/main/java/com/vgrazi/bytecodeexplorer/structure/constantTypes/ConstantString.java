@@ -28,9 +28,9 @@ public class ConstantString extends ConstantType {
 
     public String toString() {
         List<ConstantType> constants = getConstants();
-        String string = "";
+        String string = "String\t\t\t#" + stringIndex + "\t\t\t// ";
         if (constants != null) {
-            string = "String\t\t\t#" + stringIndex + "\t\t\t// " + constants.get(stringIndex - 1).toString();
+            string += constants.get(stringIndex - 1).toString();
         }
         return string;
     }

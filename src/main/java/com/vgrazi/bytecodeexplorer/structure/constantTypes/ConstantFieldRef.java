@@ -31,10 +31,10 @@ public class ConstantFieldRef extends ConstantType {
     }
 
     public String toString() {
-        String string = "";
+        String string = Utils.formatAsFourByteHexString(startByteIndex) + " Fieldref\t\t#" + classIndex + ".#" + nameAndTypeIndex ;
         List<ConstantType> constants = getConstants();
         if (constants != null) {
-            string = Utils.formatAsFourByteHexString(startByteIndex) + " Fieldref\t\t#" + classIndex + ".#" + nameAndTypeIndex + "<br/>" +
+            string += "<br/>" +
                 constants.get(classIndex - 1) + "<br/>" +
                 constants.get(nameAndTypeIndex - 1) + "<br/>";
         }

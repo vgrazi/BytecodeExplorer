@@ -29,9 +29,8 @@ public class Utils {
     public static void printConstants(List<ConstantType> constants) {
         for (int i = 0; i < constants.size(); i++) {
             ConstantType constantType = constants.get(i);
-            System.out.printf("#%2d %s%n",
-                (i + 1),
-                constantType.toString());
+            System.out.printf("#%2d %2d %s%n",
+                (i + 1), constantType.getTag(), constantType);
         }
 
     }

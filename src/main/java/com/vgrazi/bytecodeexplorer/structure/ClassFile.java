@@ -90,7 +90,8 @@ public class ClassFile {
             return constantPoolCountSection;
         }
         else {
-            return constantPoolSection.getSection(byteIndex);
+            int sectionIndex = constantPoolSection.getSectionIndex(byteIndex);
+            return constantPoolSection.getSection(sectionIndex);
         }
 
     }

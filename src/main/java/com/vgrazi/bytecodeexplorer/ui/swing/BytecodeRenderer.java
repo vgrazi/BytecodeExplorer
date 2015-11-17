@@ -110,7 +110,7 @@ public class BytecodeRenderer {
 
         JViewport viewport = new JViewport();
         viewport.setView(rowLabelTable);
-        viewport.setPreferredSize(new Dimension(27, rowLabelTable.getPreferredSize().height));
+        viewport.setPreferredSize(new Dimension(45, rowLabelTable.getPreferredSize().height));
         hexScrollPane.setRowHeaderView(viewport);
         JLabel corner = new JLabel("Row");
         corner.setFont(header.getFont());
@@ -133,10 +133,10 @@ public class BytecodeRenderer {
             rows = rows + 1;
         }
 
-        // first set the names
+        // first set the column labels
         Object[] names = new Object[BytecodeExplorerCellRenderer.TABLE_COLUMNS];
         for (int i = 0; i < names.length; i++) {
-            names[i] = String.format("%02X", i);
+            names[i] = String.format("%01X", i);
         }
 
         // Next set the data
@@ -152,9 +152,10 @@ public class BytecodeRenderer {
         // Now set the row labels
         Object[][] rowLabelData = new Object[hexTable.getRowCount()][1];
         for (int i = 0; i < hexTable.getRowCount(); i++) {
-            String formatted = String.format("%02X", i);
+            String formatted = String.format("%04X", i * 16);
             rowLabelData[i][0] = formatted;
         }
+
         rowLabelTable.setModel(new DefaultTableModel(rowLabelData, new String[]{"Row"}));
     }
 

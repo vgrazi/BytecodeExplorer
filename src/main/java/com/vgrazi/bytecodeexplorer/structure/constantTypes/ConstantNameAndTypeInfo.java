@@ -32,9 +32,9 @@ public class ConstantNameAndTypeInfo extends ConstantType {
     @Override
     public String toString() {
         List<ConstantType> constants = getConstants();
-        String string = "";
+        String string = "NameAndType #" + nameIndex + ":#" + descriptorIndex ;
         if (constants != null) {
-            string = "NameAndType #" + nameIndex + ":#" + descriptorIndex + "<br/>" + constants.get(nameIndex - 1) +
+            string += "<br/>" + constants.get(nameIndex - 1) +
                 " : " + constants.get(descriptorIndex - 1);
         }
         return string;

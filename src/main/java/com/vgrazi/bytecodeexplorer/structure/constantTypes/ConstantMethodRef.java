@@ -31,10 +31,9 @@ public class ConstantMethodRef extends ConstantType {
 
     public String toString() {
         List<ConstantType> constants = getConstants();
-        String string = "";
+        String string = Utils.formatAsFourByteHexString(startByteIndex) + " Methodref #" + classIndex + ".#" + nameAndTypeIndex;
         if (constants != null) {
-            string =
-                Utils.formatAsFourByteHexString(startByteIndex) + " Methodref #" + classIndex + ".#" + nameAndTypeIndex +
+            string +=
                     "<br/> " +
                 constants.get(classIndex - 1) + "." + constants.get(nameAndTypeIndex - 1);
         }
