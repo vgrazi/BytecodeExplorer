@@ -29,10 +29,16 @@ public class ConstantMethodRef extends ConstantType {
         this.nameAndTypeIndex = Utils.getTwoBytes(bytes, index + 3);
     }
 
-    @Override
-    public String toString(List<ConstantType> constants) {
-        return "Methodref\t\t#" + classIndex + ".#" + nameAndTypeIndex + "\t\t// ";// +
-//        constants.get(nameAndTypeIndex -1).toString() + "." + constants.get(nameAndTypeIndex -1).toString();
+    public String toString() {
+        List<ConstantType> constants = getConstants();
+        String string = "";
+        if (constants != null) {
+            string =
+                Utils.formatAsFourByteHexString(startByteIndex) + " Methodref #" + classIndex + ".#" + nameAndTypeIndex +
+                    "<br/> " +
+                constants.get(classIndex - 1) + "." + constants.get(nameAndTypeIndex - 1);
+        }
+        return string;
 
     }
 

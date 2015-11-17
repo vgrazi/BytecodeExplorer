@@ -5,17 +5,17 @@ import com.vgrazi.bytecodeexplorer.utils.Utils;
 /**
  * Created by vgrazi on 8/13/15.
  */
-public class ConstantPoolCountSection implements ClassFileSection {
+public class CountSection implements ClassFileSection {
     /**
      * Actually the pool size + 1, as presented in the classfile
      */
-    private int poolSizeBytes;
-    public ConstantPoolCountSection(byte[] bytes) {
-        poolSizeBytes = Utils.getTwoBytes(bytes, getStartByteIndex());
+    private int countBytes;
+    public CountSection(byte[] bytes) {
+        countBytes = Utils.getTwoBytes(bytes, getStartByteIndex());
     }
 
-    public int getPoolSizeBytes() {
-        return poolSizeBytes;
+    public int getCountBytes() {
+        return countBytes;
     }
 
     /**
@@ -50,5 +50,10 @@ public class ConstantPoolCountSection implements ClassFileSection {
 
     public boolean contains(int startByteIndex) {
         return startByteIndex >= getStartByteIndex() && startByteIndex < getStartByteIndex() + length();
+    }
+
+    @Override
+    public String toString() {
+        return Utils.formatAsFourByteHexString(getStartByteIndex()) + " Pool count:" + countBytes;
     }
 }

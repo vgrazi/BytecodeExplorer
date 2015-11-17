@@ -21,14 +21,24 @@ public class InstructionRenderer extends MouseMotionAdapter {
         this.instructionPanel = instructionPanel;
     }
 
+    private int lastRow = -1;
+    private int lastCol = -1;
     @Override
     public void mouseMoved(MouseEvent e) {
         Point p = e.getPoint();
         int row = hexTable.rowAtPoint(p);
         int col = hexTable.columnAtPoint(p);
-        String instructionSequence = classFile.getInstructionSequence(16 * row + col);
-        System.out.println(instructionSequence);
-        instructionPanel.setText(instructionSequence);
+
+        synchronized (this) {
+            if (row != lastRow || col != lastCol) {
+                lastRow = row;
+                lastCol = col;
+                // todo: 16 should be replaced with TABLE_COLS
+                int byteIndex = 16 * row + col;
+                String instructionSequence = classFile.getInstructionSequence(byteIndex);
+                instructionPanel.setText("<html>" + instructionSequence + "</html>");
+            }
+        }
     }
 
 }

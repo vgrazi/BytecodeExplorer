@@ -1,6 +1,8 @@
 package com.vgrazi.bytecodeexplorer.structure;
 
 
+import com.vgrazi.bytecodeexplorer.structure.constantTypes.ConstantType;
+
 /**
  * Created by vgrazi on 8/13/15.
  */
@@ -9,16 +11,17 @@ public class ClassFile {
     private MagicNumberSection magicNumberSection;
     private BuildSection majorBuildSection;
     private BuildSection minorBuildSection;
-    private ConstantPoolCountSection constantPoolCountSection;
+    private CountSection constantPoolCountSection;
     private ConstantPoolSection constantPoolSection;
 
     public ClassFile(byte[] bytes) {
         this.bytes = bytes;
         magicNumberSection = new MagicNumberSection(bytes);
-        minorBuildSection = new BuildSection(bytes, 4);
-        majorBuildSection = new BuildSection(bytes, 6);
-        constantPoolCountSection = new ConstantPoolCountSection(bytes);
-        constantPoolSection = new ConstantPoolSection(constantPoolCountSection.getPoolSizeBytes(), bytes, 10);
+        minorBuildSection = new BuildSection("Minor", bytes, 4);
+        majorBuildSection = new BuildSection("Major", bytes, 6);
+        constantPoolCountSection = new CountSection(bytes);
+        constantPoolSection = new ConstantPoolSection(constantPoolCountSection.getCountBytes(), bytes, 10);
+        ConstantType.setConstants(constantPoolSection.getConstants());
     }
 
     public byte[] getBytes() {
@@ -62,8 +65,7 @@ public class ClassFile {
             return 3;
         }
         else {
-            // todo continue
-            return constantPoolSection.getSectionIndex(byteIndex);
+            return constantPoolSection.getSectionIndex(byteIndex) + 3;
         }
 
     }
@@ -88,7 +90,6 @@ public class ClassFile {
             return constantPoolCountSection;
         }
         else {
-            // todo continue
             return constantPoolSection.getSection(byteIndex);
         }
 

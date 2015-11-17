@@ -3,8 +3,6 @@ package com.vgrazi.bytecodeexplorer.structure.constantTypes;
 import com.vgrazi.bytecodeexplorer.utils.IEEE754Converter;
 import com.vgrazi.bytecodeexplorer.utils.Utils;
 
-import java.util.List;
-
 /**
  * Created by vgrazi on 8/13/15.
  */
@@ -13,6 +11,7 @@ public class ConstantFloat extends ConstantType {
     private int classIndex;
     private int nameAndTypeIndex;
     private byte[] bytes;
+    private String explanation;
 
     /**
      * "tag item" is how the documentation refers to the type byte
@@ -31,19 +30,21 @@ public class ConstantFloat extends ConstantType {
         this.nameAndTypeIndex = Utils.getTwoBytes(bytes, index + 3);
 
         this.bytes = bytes;
-        long IEE754 = Utils.getFourBytes(bytes, index + 1);
+        int IEE754 = (int) Utils.getFourBytes(bytes, index + 1);
         double value = IEEE754Converter.convertToDecimal(IEE754);
         byte signBit = IEEE754Converter.extractSignBit(IEE754);
         long exponent = IEEE754Converter.extractExponent(IEE754);
         long mantissa = IEEE754Converter.extractMantissa(IEE754, exponent);
         long mantissaBytes = IEEE754Converter.extractMantissaBytes(IEE754);
-        String explanation = IEEE754Converter.getExplanation(value, signBit, exponent, mantissa, mantissaBytes);
+        explanation =
+            Utils.formatAsFourByteHexString(startByteIndex) + " ConstantFloat<br/>" +
+            IEEE754Converter.getExplanation(IEE754, value, signBit, exponent, mantissa, mantissaBytes);
         // todo: continue here
     }
 
     @Override
-    public String toString(List<ConstantType> constants) {
-        return null;
+    public String toString() {
+        return explanation;
     }
 
     /**

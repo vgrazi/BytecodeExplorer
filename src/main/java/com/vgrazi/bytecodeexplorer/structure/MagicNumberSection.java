@@ -34,4 +34,8 @@ public class MagicNumberSection implements ClassFileSection {
     public boolean contains(int startByteIndex) {
         return startByteIndex >= getStartByteIndex() && startByteIndex < getStartByteIndex() + length();
     }
+
+    public String toString() {
+        return Utils.formatAsFourByteHexString(getStartByteIndex()) + " " + Utils.formatAsFourByteHexString(magicNumber);
+    }
 }

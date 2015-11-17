@@ -2,8 +2,6 @@ package com.vgrazi.bytecodeexplorer.structure.constantTypes;
 
 import com.vgrazi.bytecodeexplorer.utils.Utils;
 
-import java.util.List;
-
 /**
  * Created by vgrazi on 8/13/15.
  */
@@ -24,14 +22,14 @@ public class ConstantInterfaceRef extends ConstantType {
 
     @Override
     public void setData(byte[] bytes, int index) {
-        this.startByteIndex = index;
-        this.classIndex = Utils.getTwoBytes(bytes, index + 1);
-        this.nameAndTypeIndex = Utils.getTwoBytes(bytes, index + 3);
+        startByteIndex = index;
+        classIndex = Utils.getTwoBytes(bytes, index + 1);
+        nameAndTypeIndex = Utils.getTwoBytes(bytes, index + 3);
     }
 
-    @Override
-    public String toString(List<ConstantType> constants) {
-        return null;
+    public String toString() {
+        return Utils.formatAsFourByteHexString(startByteIndex) + classIndex + " " +
+            nameAndTypeIndex;
     }
 
     /**

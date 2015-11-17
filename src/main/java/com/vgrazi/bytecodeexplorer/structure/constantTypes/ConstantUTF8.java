@@ -2,8 +2,6 @@ package com.vgrazi.bytecodeexplorer.structure.constantTypes;
 
 import com.vgrazi.bytecodeexplorer.utils.Utils;
 
-import java.util.List;
-
 /**
  * Created by vgrazi on 8/13/15.
  */
@@ -61,12 +59,7 @@ public class ConstantUTF8 extends ConstantType {
 
     @Override
     public String toString() {
-        return "Utf8\t\t\t" + stringValue;
-    }
-
-    @Override
-    public String toString(List<ConstantType> constants) {
-        return toString();
+        return Utils.formatAsFourByteHexString(startByteIndex) + " Utf8\t\t\t" + stringValue;
     }
 }
 

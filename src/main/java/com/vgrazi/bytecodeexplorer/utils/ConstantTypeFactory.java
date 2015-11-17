@@ -12,14 +12,18 @@ public class ConstantTypeFactory {
     static final protected Map<Byte, ConstantType> constantTypeMap = new HashMap<>();
 
     static {
-        pool(new ConstantUTF8());
-        pool(new ConstantFloat());
-        pool(new ConstantClass());
-        pool(new ConstantString());
-        pool(new ConstantFieldRef());
-        pool(new ConstantMethodRef());
-        pool(new ConstantInterfaceRef());
-        pool(new ConstantNameAndTypeInfo());
+        pool(new ConstantUTF8());                   //  1
+
+
+        pool(new ConstantFloat());                  //  4
+
+
+        pool(new ConstantClass());                  //  7
+        pool(new ConstantString());                 //  8
+        pool(new ConstantFieldRef());               //  9
+        pool(new ConstantMethodRef());              // 10
+        pool(new ConstantInterfaceRef());           // 11
+        pool(new ConstantNameAndTypeInfo());        // 12
     }
 
     public static ConstantType createConstantType(byte tag) {

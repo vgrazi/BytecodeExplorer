@@ -28,8 +28,14 @@ public class ConstantClass extends ConstantType {
     }
 
     @Override
-    public String toString(List<ConstantType> constants) {
-        return "Class\t\t\t#" + nameIndex;
+    public String toString() {
+        List<ConstantType> constants = getConstants();
+        String string = "";
+        if (constants != null) {
+            string = Utils.formatAsFourByteHexString(startByteIndex) + " Class #" + nameIndex + "<br/>" +
+                " " + constants.get(nameIndex -1);
+        }
+        return string;
     }
 
     /**

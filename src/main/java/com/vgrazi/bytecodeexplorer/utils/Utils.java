@@ -31,12 +31,32 @@ public class Utils {
             ConstantType constantType = constants.get(i);
             System.out.printf("#%2d %s%n",
                 (i + 1),
-                constantType.toString(constants));
+                constantType.toString());
         }
 
     }
 
+    public static String formatAsTwoByteHexString(long value) {
+        return String.format("%02X", value);
+    }
+
     public static String formatAsFourByteHexString(long value) {
         return String.format("%04X", value);
+    }
+
+    public static String formatAsBinary(long value) {
+        String string = Long.toBinaryString(value);
+        if (string.length() < 32) {
+            string = "00000000000000000000000000000000".substring(string.length()) + string;
+        }
+        return
+            string.substring(0, 4) + " " +
+            string.substring(4, 8) + " " +
+            string.substring(8, 12) + " " +
+            string.substring(12, 16) + " " +
+            string.substring(16, 20) + " " +
+            string.substring(20, 24) + " " +
+            string.substring(24, 28) + " " +
+            string.substring(28, 32);
     }
 }

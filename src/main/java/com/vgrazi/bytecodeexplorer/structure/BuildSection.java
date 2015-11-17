@@ -7,9 +7,11 @@ import com.vgrazi.bytecodeexplorer.utils.Utils;
  */
 public class BuildSection implements ClassFileSection {
     private final int build;
+    private String kind;
     private int startByte;
 
-    public BuildSection(byte[] bytes, int startByte) {
+    public BuildSection(String kind, byte[] bytes, int startByte) {
+        this.kind = kind;
         this.startByte = startByte;
         build = Utils.getTwoBytes(bytes, getStartByteIndex());
     }
@@ -31,5 +33,9 @@ public class BuildSection implements ClassFileSection {
 
     public boolean contains(int startByteIndex) {
         return startByteIndex >= getStartByteIndex() && startByteIndex < getStartByteIndex() + length();
+    }
+
+    public String toString() {
+        return Utils.formatAsFourByteHexString(startByte) + " " + kind + " build number " + Utils.formatAsFourByteHexString(build);
     }
 }

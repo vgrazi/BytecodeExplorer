@@ -26,9 +26,13 @@ public class ConstantString extends ConstantType {
         this.stringIndex = Utils.getTwoBytes(bytes, index+1);
     }
 
-    @Override
-    public String toString(List<ConstantType> constants) {
-        return "String\t\t\t#" + stringIndex + "\t\t\t// " + constants.get(stringIndex -1).toString(constants);
+    public String toString() {
+        List<ConstantType> constants = getConstants();
+        String string = "";
+        if (constants != null) {
+            string = "String\t\t\t#" + stringIndex + "\t\t\t// " + constants.get(stringIndex - 1).toString();
+        }
+        return string;
     }
 
     /**

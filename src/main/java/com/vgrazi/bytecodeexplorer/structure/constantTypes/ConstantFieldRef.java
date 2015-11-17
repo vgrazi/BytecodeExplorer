@@ -30,9 +30,15 @@ public class ConstantFieldRef extends ConstantType {
         this.nameAndTypeIndex = Utils.getTwoBytes(bytes, index + 3);
     }
 
-    @Override
-    public String toString(List<ConstantType> constants) {
-        return "Fieldref\t\t#" + classIndex +".#" + nameAndTypeIndex;
+    public String toString() {
+        String string = "";
+        List<ConstantType> constants = getConstants();
+        if (constants != null) {
+            string = Utils.formatAsFourByteHexString(startByteIndex) + " Fieldref\t\t#" + classIndex + ".#" + nameAndTypeIndex + "<br/>" +
+                constants.get(classIndex - 1) + "<br/>" +
+                constants.get(nameAndTypeIndex - 1) + "<br/>";
+        }
+        return string;
     }
 
     /**
