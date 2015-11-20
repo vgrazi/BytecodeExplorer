@@ -88,7 +88,7 @@ Mantisa = 1 + sum(a(n)/(2^n))
             Utils.formatAsFourByteHexString(IEE754) + " =<br/>" +
                 "&nbsp;" + Utils.formatAsBinary(IEE754) + "=<br>" +
                 IEEE754Converter.formatBinaryAsIEEE754(IEE754) + "<br>" +
-                "<font color='blue'>" + Utils.formatAsFourByteHexString(signBit) + " sign bit:" + signBit + "</font><br/>" +
+                "<font color='blue'>" + signBit + " sign bit:" + signBit + "</font><br/>" +
                 "<font color='red'>" + Utils.formatAsFourByteHexString(exponent + 127) + " exponent:" + (exponent + 127) + "-127=" + exponent + "</font><br/>" +
                 "<font color='green'>" + Utils.formatAsFourByteHexString(mantissaBytes) + " mantissa:" + mantissa + "</font><br/><span class='tab'>&nbsp;</span>" +
                 +value + " = <font color='blue'>" + (signBit == 1 ? "-1" : "+1") + "</font> * 2^<font color='red'>" + exponent + "</font> * <font color='green'>" + mantissa + "</font>";

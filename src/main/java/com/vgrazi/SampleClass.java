@@ -10,7 +10,7 @@ public class SampleClass implements Serializable, Cloneable, SampleInterface {
 
     protected SampleInterface mySampleInterface = new SampleClass();
     public float myWeight = 175f;
-    public float myHeight = 6.5f;
+    public float myHeight = -6.5f;
     public SampleClass() {
 
     }
