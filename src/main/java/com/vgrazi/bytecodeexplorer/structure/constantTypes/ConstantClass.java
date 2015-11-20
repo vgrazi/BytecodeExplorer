@@ -65,7 +65,7 @@ public class ConstantClass extends ConstantType {
      */
     @Override
     public int getStartByteIndex() {
-        return 0;
+        return startByteIndex;
     }
 
 }

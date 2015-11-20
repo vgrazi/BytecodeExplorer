@@ -1,6 +1,7 @@
 package com.vgrazi.bytecodeexplorer.ui.swing;
 
 import com.vgrazi.bytecodeexplorer.structure.ClassFile;
+import com.vgrazi.bytecodeexplorer.structure.ClassFileSection;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -12,8 +13,18 @@ public class BytecodeRenderer {
     public static final int TABLE_WIDTH_PX = 450;
     private final JLabel instructionPanel = new JLabel();
 
+    // construct the hex table
+    private JTable hexTable = new JTable();
+    // construct the frame
+    private JFrame frame = createFrame();
+
+
+    private int startHoverBlock = -1;
+    private int endHoverBlock = -1;
+
 
     private final ClassFile classFile;
+    private int counter;
 
     public BytecodeRenderer(ClassFile classFile) {
         this.classFile = classFile;
@@ -21,8 +32,6 @@ public class BytecodeRenderer {
     }
 
     public void launch() {
-        // construct the hex table
-        JTable hexTable = new JTable();
         hexTable.setEnabled(false);
         hexTable.getTableHeader().setResizingAllowed(false);
 
@@ -32,23 +41,24 @@ public class BytecodeRenderer {
 
         addInstructionRenderer(hexTable);
 
-        // construct the frame
-        JFrame frame = createFrame();
-
         // add the hex table and row labels to the frame
         addHexTable(frame, hexTable, rowLabelTable);
 
         // add the instruction panel to the frame
         addInstructionPanel(frame);
+        rerender(hexTable, frame);
+    }
 
-
+    private void rerender(JTable hexTable, JFrame frame) {
         // refresh the layout
         hexTable.doLayout();
         frame.getContentPane().doLayout();
+
     }
 
     private void addInstructionRenderer(JTable hexTable) {
         hexTable.addMouseMotionListener(new InstructionRenderer(classFile, hexTable, instructionPanel));
+        hexTable.addMouseMotionListener(new HoverHandler(hexTable, this));
     }
 
     private JFrame createFrame() {
@@ -117,7 +127,7 @@ public class BytecodeRenderer {
         hexScrollPane.setCorner(JScrollPane.UPPER_LEFT_CORNER, corner);
         BytecodeExplorerCellRenderer.populateColors(classFile);
         for (int i = 0; i < BytecodeExplorerCellRenderer.TABLE_COLUMNS; i++) {
-            hexTable.getColumnModel().getColumn(i).setCellRenderer(new BytecodeExplorerCellRenderer(classFile));
+            hexTable.getColumnModel().getColumn(i).setCellRenderer(new BytecodeExplorerCellRenderer(this, classFile));
         }
     }
 
@@ -159,4 +169,25 @@ public class BytecodeRenderer {
         rowLabelTable.setModel(new DefaultTableModel(rowLabelData, new String[]{"Row"}));
     }
 
+    /**
+     * Called when the specified byteIndex is hovered over,
+     * finds the classfile section containing that byte, and colors thst section yellow
+     * @param byteIndex
+     */
+    public void hover(int byteIndex) {
+        if(byteIndex < startHoverBlock || byteIndex > endHoverBlock) {
+            ClassFileSection section = classFile.getSection(byteIndex);
+            startHoverBlock = section.getStartByteIndex();
+            endHoverBlock = startHoverBlock + section.length() - 1;
+            hexTable.repaint();
+        }
+    }
+
+    public int getStartHoverBlock() {
+        return startHoverBlock;
+    }
+
+    public int getEndHoverBlock() {
+        return endHoverBlock;
+    }
 }

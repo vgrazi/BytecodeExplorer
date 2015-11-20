@@ -65,7 +65,7 @@ public class ClassFile {
             return 3;
         }
         else {
-            return constantPoolSection.getSectionIndex(byteIndex) + 3;
+            return constantPoolSection.getSectionIndex(byteIndex) + 4;
         }
 
     }
