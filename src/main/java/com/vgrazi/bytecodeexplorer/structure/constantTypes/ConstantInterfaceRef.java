@@ -2,6 +2,8 @@ package com.vgrazi.bytecodeexplorer.structure.constantTypes;
 
 import com.vgrazi.bytecodeexplorer.utils.Utils;
 
+import java.util.List;
+
 /**
  * Created by vgrazi on 8/13/15.
  */
@@ -28,8 +30,15 @@ public class ConstantInterfaceRef extends ConstantType {
     }
 
     public String toString() {
-        return Utils.formatAsFourByteHexString(startByteIndex) + classIndex + " " +
-            nameAndTypeIndex;
+        List<ConstantType> constants = getConstants();
+        String string = getFormattedConstantIndex() + Utils.formatAsFourByteHexString(startByteIndex);
+        if (constants != null) {
+            string +=
+                "<span style='color:blue'>" + constants.get(classIndex - 1) + "</span><br/>" +
+                "<span style='color:red'>" + constants.get(nameAndTypeIndex - 1) + "</span><br/>";
+        }
+
+        return string;
     }
 
     /**

@@ -11,6 +11,7 @@ import java.util.Map;
 public class ConstantTypeFactory {
     static final protected Map<Byte, ConstantType> constantTypeMap = new HashMap<>();
 
+    private static int constantIndex = 1;
     static {
         pool(new ConstantUTF8());                   //  1
 
@@ -29,6 +30,7 @@ public class ConstantTypeFactory {
     public static ConstantType createConstantType(byte tag) {
         ConstantType constantType = constantTypeMap.get(tag);
         ConstantType rval = (ConstantType) constantType.clone();
+        rval.setIndex(constantIndex++);
         return rval;
     }
 

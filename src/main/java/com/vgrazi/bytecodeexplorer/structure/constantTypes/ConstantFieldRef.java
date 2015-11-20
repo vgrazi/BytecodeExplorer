@@ -31,12 +31,15 @@ public class ConstantFieldRef extends ConstantType {
     }
 
     public String toString() {
-        String string = Utils.formatAsFourByteHexString(startByteIndex) + " Fieldref\t\t#" + classIndex + ".#" + nameAndTypeIndex ;
+        String string = getFormattedConstantIndex() + Utils.formatAsFourByteHexString(startByteIndex) +
+            " Fieldref\t\t" +
+            "<span style='color:blue'>#" + classIndex + "</span>." +
+            "<span style='color:red'>#" + nameAndTypeIndex  + "</span>";
         List<ConstantType> constants = getConstants();
         if (constants != null) {
             string += "<br/>" +
-                constants.get(classIndex - 1) + "<br/>" +
-                constants.get(nameAndTypeIndex - 1) + "<br/>";
+                "<span style='color:blue'>" + constants.get(classIndex - 1) + "</span><br/>" +
+                "<span style='color:red'>" + constants.get(nameAndTypeIndex - 1) + "</span><br/>";
         }
         return string;
     }

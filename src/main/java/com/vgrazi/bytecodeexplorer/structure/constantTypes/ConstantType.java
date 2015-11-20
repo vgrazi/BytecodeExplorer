@@ -11,6 +11,7 @@ public abstract class ConstantType implements ClassFileSection, Cloneable{
 
 
     private static List<ConstantType> constants;
+    private int index;
 
     public boolean contains(int byteIndex) {
         return byteIndex >= getStartByteIndex() && byteIndex < getStartByteIndex() + length();
@@ -44,4 +45,17 @@ public abstract class ConstantType implements ClassFileSection, Cloneable{
             return null;
         }
     }
+
+    public void setIndex(int index) {
+        this.index = index;
+    }
+
+    public int getIndex() {
+        return this.index;
+    }
+
+    protected String getFormattedConstantIndex() {
+        return String.format("#%d ", getIndex());
+    }
+
 }

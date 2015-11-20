@@ -32,10 +32,14 @@ public class ConstantNameAndTypeInfo extends ConstantType {
     @Override
     public String toString() {
         List<ConstantType> constants = getConstants();
-        String string = "NameAndType #" + nameIndex + ":#" + descriptorIndex ;
+        String string = getFormattedConstantIndex() + "NameAndType " +
+            "<span style='color:blue'>#" + nameIndex + "</span>" +
+            ":<span style='color:red'>#" + descriptorIndex ;
         if (constants != null) {
-            string += "<br/>" + constants.get(nameIndex - 1) +
-                " : " + constants.get(descriptorIndex - 1);
+            string += "<br/>" +
+            "<span style='color:blue'>" + constants.get(nameIndex - 1) + "</span><br/>" +
+            "<span style='color:red'>" + constants.get(descriptorIndex - 1) + "</span><br/>";
+
         }
         return string;
     }
