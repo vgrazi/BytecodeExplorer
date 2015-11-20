@@ -13,7 +13,11 @@ Eventually I would like to finish translating this to Java, with the purpose of 
 monitor the stack and program registers. 
 
 ## Usage
-This easiest way to get this going is to load the project in IntelliJ (Community edition will do for execution, but Ultimate Edition or 
+To launch the Java version build it using Maven, then run java com.vgrazi.bytecodeexplorer.BytecodeExplorer target/classes/com/vgrazi/SampleClass.class
+(Other classes may or may not work at this time)
+
+
+This easiest way to get the browser based version going is to load the project in IntelliJ (Community edition will do for execution, but Ultimate Edition or 
 WebStorm recommended for coding). Open the file bytecode-explorer.html in IntelliJ
 and mouse over the top right of the editor screen. A list of browser icons will appear. Choose Chrome (I have not tested it in other browsers yet)
 
