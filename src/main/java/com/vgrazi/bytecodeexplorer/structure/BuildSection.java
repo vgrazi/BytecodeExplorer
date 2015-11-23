@@ -17,11 +17,6 @@ public class BuildSection implements ClassFileSection {
     }
 
     @Override
-    public int elementCount() {
-        return 1;
-    }
-
-    @Override
     public int length() {
         return 2;
     }

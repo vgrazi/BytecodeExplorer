@@ -48,16 +48,6 @@ public class ConstantFloat extends ConstantType {
     }
 
     /**
-     * How many elements in this section, for example, constant pool has many elements.
-     *
-     * @return Number of elements in this section
-     */
-    @Override
-    public int elementCount() {
-        return 0;
-    }
-
-    /**
      * length in bytes of this section
      *
      * @return length in bytes of this section

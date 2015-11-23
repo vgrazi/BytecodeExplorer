@@ -19,16 +19,6 @@ public class CountSection implements ClassFileSection {
     }
 
     /**
-     * How many elements in this section
-     *
-     * @return Number of elements in this section
-     */
-    @Override
-    public int elementCount() {
-        return 1;
-    }
-
-    /**
      * length in bytes of this section
      *
      * @return length in bytes of this section

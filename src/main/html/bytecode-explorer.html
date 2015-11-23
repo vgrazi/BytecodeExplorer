@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+<head lang="en">
+    <meta charset="UTF-8">
+
+    <script src="../js/angular/angular.min.1.0.8.js"></script>
+
+    <script src="../js/Utils/Utils.js"></script>
+    <script src="../js/Utils/bytecodeInstructionMaps.js"></script>
+    <script src="../js/Utils/decompiler.js"></script>
+    <script src="../js/Utils/descriptorMap.js"></script>
+    <script src="../js/Utils/IEEE754Converter.js"></script>
+    <script src="../js/bytecodeExplorerCtrl.js"></script>
+    <script src="../js/structure/ClassFile.js"></script>
+    <script src="../js/structure/MagicNumberSection.js"></script>
+    <script src="../js/structure/BuildSection.js"></script>
+    <script src="../js/structure/constantTypes/ConstantClass.js"></script>
+    <script src="../js/structure/constantTypes/ConstantUTF8.js"></script>
+    <script src="../js/structure/constantTypes/ConstantMethodRef.js"></script>
+    <script src="../js/structure/constantTypes/ConstantInterfaceMethodRef.js"></script>
+    <script src="../js/structure/constantTypes/ConstantString.js"></script>
+    <script src="../js/structure/constantTypes/ConstantFieldRef.js"></script>
+    <script src="../js/structure/constantTypes/ConstantFloat.js"></script>
+    <script src="../js/structure/constantTypes/ConstantLong.js"></script>
+    <script src="../js/structure/constantTypes/ConstantInteger.js"></script>
+    <script src="../js/structure/constantTypes/ConstantNameAndType.js"></script>
+    <script src="../js/structure/constantTypes/ConstantInterfaceRef.js"></script>
+    <script src="../js/structure/ConstantPoolSection.js"></script>
+    <script src="../js/structure/AccessFlagsSection.js"></script>
+    <script src="../js/structure/ThisClassSection.js"></script>
+    <script src="../js/structure/SuperClassSection.js"></script>
+    <script src="../js/structure/InterfacesSection.js"></script>
+    <script src="../js/structure/FieldsSection.js"></script>
+    <script src="../js/structure/MethodsSection.js"></script>
+    <script src="../js/structure/CountSection.js"></script>
+    <script src="../js/structure/members/FieldInfo.js"></script>
+    <script src="../js/structure/members/MethodInfo.js"></script>
+    <script src="../js/structure/members/AttributeInfo.js"></script>
+    <script src="../js/structure/members/CodeAttribute.js"></script>
+    <script src="../js/structure/members/ExceptionTable.js"></script>
+    <script src="../js/Utils/ConstantTypeFactory.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.3.3.5.css"/>
+
+    <link rel="stylesheet" type="text/css" href="../css/bytecode-explorer.css"/>
+</head>
+<body ng-app="bytecodeExplorerApp" ng-controller="BytecodeExplorerController">
+<!--{{row}} {{col}} {{instruction}}-->
+<div>
+    <input type="file" id="fileInput" ng-model="csv" multiple
+           onchange="angular.element(this).scope().handleFiles(this.files)">
+</div>
+{{debug}}
+
+<div class="container-fluid">
+    <div class="row">
+        <div ng-show="fileBytes" class="col-md-6 byte-panel">
+            <table id="bytes">
+                <thead>
+                <tr ng-mouseenter="selected(-1, -1)">
+
+                    <td class="be-col1">Row</td>
+                    <td ng-repeat="col in getColumnCount()">{{formatAsOneByteHexString($index)}}</td>
+
+                </tr>
+                </thead>
+
+                <tr ng-repeat="row in getRowCount()">
+
+                    <td ng-mouseenter="selected(-1, -1)">
+
+                        {{formatAsHexString($index * columnCount)}}
+                        <!--{{$index * columnCount}}-->
+
+                    </td>
+
+                    <td ng-repeat="byte in getRowBytes($index)">
+
+                        <span ng-class="getClass($parent.$index, $index)" ng-mouseup="selected($parent.$index, $index, true)" ng-mouseleave="selectPreserved()" ng-mouseenter="selected($parent.$index, $index)">
+
+                            {{convertToHex(byte)}}
+
+                        </span>
+
+                    </td>
+
+                </tr>
+            </table>
+        </div>
+
+        <div class="col-md-6 instruction-panel" ng-show="row >= 0 && col >= 0"
+             ng-bind-html-unsafe="instruction">
+
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

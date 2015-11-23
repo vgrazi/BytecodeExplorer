@@ -47,16 +47,6 @@ public class ConstantPoolSection implements ClassFileSection {
         return 0;
     }
 
-        /**
-         * How many elements in this section
-         *
-         * @return Number of elements in this section
-         */
-    @Override
-    public int elementCount() {
-        return elementCount;
-    }
-
     public void setElementCount(int elementCount) {
         this.elementCount = elementCount;
     }
@@ -81,6 +71,10 @@ public class ConstantPoolSection implements ClassFileSection {
         return startByteIndex;
     }
 
+    public int getEndByteIndex() {
+        return getStartByteIndex() + length();
+    }
+
     public ClassFileSection getSection(int sectionIndex) {
         ConstantType type = null;
         if (sectionIndex < constants.size()) {
@@ -91,5 +85,9 @@ public class ConstantPoolSection implements ClassFileSection {
 
     public List<ConstantType> getConstants() {
         return constants;
+    }
+
+    public boolean contains(int byteIndex) {
+        return byteIndex >= getStartByteIndex() && byteIndex < getEndByteIndex();
     }
 }

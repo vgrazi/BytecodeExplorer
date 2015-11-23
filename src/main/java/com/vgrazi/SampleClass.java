@@ -1,24 +1,27 @@
 package com.vgrazi;
 
 import java.io.Serializable;
+import java.lang.reflect.Method;
 
 /**
  * Created by vgrazi on 8/12/15.
  */
 public class SampleClass implements Serializable, Cloneable, SampleInterface {
-    private int myAge=12345;
+    public static int myZip=11223;
 
     protected SampleInterface mySampleInterface = new SampleClass();
     public float myWeight = 175f;
     public float myHeight = -6.5f;
-    public SampleClass() {
+    public Method myMethod;
+    public SampleClass() throws NoSuchMethodException {
 
+        myMethod = SampleClass.class.getMethod("fibonacci", int.class);
     }
-    public static void main(String[] args) {
+    public static void main(String[] args) throws NoSuchMethodException {
         new SampleClass().launch();
     }
 
-    private void launch() {
+    private static void launch() {
         System.out.println("Hello, World");
     }
 
@@ -30,8 +33,9 @@ public class SampleClass implements Serializable, Cloneable, SampleInterface {
             fibonacci(n - 1) + fibonacci(n - 2);
     }
 
-    private void theEnd() {
+    public void theEnd() {
         int a = 1;
+        System.out.println("Myage:" + myZip);
         System.out.println(
             "-123456789-123456789-123456789-123456789-123456789-123456789-123456789-123456789-123456789-123456789" +
             "-123456789-123456789-123456789-123456789-123456789-123456789-123456789-123456789-123456789-123456789" +

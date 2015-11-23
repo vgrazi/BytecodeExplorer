@@ -8,12 +8,12 @@ import java.util.List;
  * Created by vgrazi on 8/13/15.
  */
 public class Utils {
-    public static long getFourBytes(byte[] bytes, int index) {
-        long value =
-            (((long) bytes[index++] << 24) & 0xff000000L) |
-                (((long) bytes[index++] << 16) & 0xff0000L) |
-                (((long) bytes[index++] << 8) & 0xff00L) |
-                ((long) bytes[index++]) & 0xffL;
+    public static int getFourBytes(byte[] bytes, int index) {
+        int value =
+            (int) ((((int) bytes[index++] << 24) & 0xff000000L) |
+                            (((int) bytes[index++] << 16) & 0xff0000L) |
+                            (((int) bytes[index++] << 8) & 0xff00L) |
+                            ((int) bytes[index++]) & 0xffL);
 
         return value;
     }

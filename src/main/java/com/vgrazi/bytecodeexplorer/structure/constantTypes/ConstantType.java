@@ -25,8 +25,6 @@ public abstract class ConstantType implements ClassFileSection, Cloneable{
 
     public abstract void setData(byte[] bytes, int index);
 
-    public abstract int elementCount();
-
     public static  void setConstants(List<ConstantType> constants) {
         ConstantType.constants = constants;
     }
@@ -55,7 +53,7 @@ public abstract class ConstantType implements ClassFileSection, Cloneable{
     }
 
     protected String getFormattedConstantIndex() {
-        return String.format("#%d ", getIndex());
+        return String.format("(#%d) ", getIndex());
     }
 
 }

@@ -2,15 +2,12 @@ package com.vgrazi.bytecodeexplorer.structure.constantTypes;
 
 import com.vgrazi.bytecodeexplorer.utils.Utils;
 
-import java.util.List;
-
 /**
  * Created by vgrazi on 8/13/15.
  */
-public class ConstantClass extends ConstantType {
-
+public class ConstantInteger extends ConstantType {
     private int startByteIndex;
-    private int nameIndex;
+    private int intValue;
 
     /**
      * "tag item" is how the documentation refers to the type byte
@@ -19,22 +16,16 @@ public class ConstantClass extends ConstantType {
      */
     @Override
     public byte getTag() {
-        return 7;
+        return 3;
     }
 
     public void setData(byte[] bytes, int index) {
         this.startByteIndex = index;
-        this.nameIndex = Utils.getTwoBytes(bytes, index + 1);
+        this.intValue = (int) Utils.getFourBytes(bytes, index+1);
     }
 
-    @Override
     public String toString() {
-        List<ConstantType> constants = getConstants();
-        String string = getFormattedConstantIndex() + Utils.formatAsFourByteHexString(startByteIndex) + " Class #" + nameIndex;
-        if (constants != null) {
-            string += "<br/>" +
-                " " + constants.get(nameIndex -1);
-        }
+        String string = getFormattedConstantIndex() + "ConstantInteger\t\t\t" + intValue + "<br/>";
         return string;
     }
 
@@ -45,7 +36,7 @@ public class ConstantClass extends ConstantType {
      */
     @Override
     public int length() {
-        return 3;
+        return 5;
     }
 
     /**
@@ -57,5 +48,4 @@ public class ConstantClass extends ConstantType {
     public int getStartByteIndex() {
         return startByteIndex;
     }
-
 }
