@@ -83,9 +83,9 @@ Mantisa = 1 + sum(a(n)/(2^n))
         return mantissa;
     }
 
-    public static String getExplanation(long IEE754, double value, byte signBit, long exponent, long mantissa, long mantissaBytes) {
+    public static String getExplanation(int IEE754, double value, byte signBit, long exponent, long mantissa, long mantissaBytes) {
         return
-            Utils.formatAsFourByteHexString(IEE754) + " =<br/>" +
+            Utils.formatAsTwoByteHexString(IEE754) + " =<br/>" +
                 "&nbsp;" + Utils.formatAsBinary(IEE754) + "=<br>" +
                 IEEE754Converter.formatBinaryAsIEEE754(IEE754) + "<br>" +
                 "<font color='blue'>" + signBit + " sign bit:" + signBit + "</font><br/>" +
@@ -94,20 +94,21 @@ Mantisa = 1 + sum(a(n)/(2^n))
                 +value + " = <font color='blue'>" + (signBit == 1 ? "-1" : "+1") + "</font> * 2^<font color='red'>" + exponent + "</font> * <font color='green'>" + mantissa + "</font>";
     }
 
-    public static String formatBinaryAsIEEE754(long value) {
-        String string = Long.toBinaryString(value);
-        if (string.length() < 32) {
-            string = "00000000000000000000000000000000".substring(string.length()) + string;
+    public static String formatBinaryAsIEEE754(int value) {
+        String string = Integer.toBinaryString(value);
+        if (string.length() < 16) {
+            string = "0000000000000000".substring(string.length()) + string;
         }
         return
             "<font color='blue'>" + string.substring(0, 1) + "</font> " +
             "<font color='red'>" + string.substring(1, 5) + "</font> " +
             "<font color='red'>" + string.substring(5, 9) + "</font> " +
             "<font color='green'>" + string.substring(9, 12) + "</font> " +
-            "<font color='green'>" + string.substring(12, 16) + "</font> " +
-            "<font color='green'>" + string.substring(16, 20) + "</font> " +
-            "<font color='green'>" + string.substring(20, 24) + "</font> " +
-            "<font color='green'>" + string.substring(24, 28) + "</font> " +
-            "<font color='green'>" + string.substring(28, 32) + "</font>";
+            "<font color='green'>" + string.substring(12, 16) + "</font> ";
+//            "<font color='green'>" + string.substring(16, 20) + "</font> " +
+//            "<font color='green'>" + string.substring(20, 24) + "</font> " +
+//            "<font color='green'>" + string.substring(24, 28) + "</font> " +
+//            "<font color='green'>" + string.substring(28, 32) + "</font>";
     }
 }
+

@@ -26,10 +26,6 @@ public class BuildSection implements ClassFileSection {
         return startByte;
     }
 
-    public boolean contains(int startByteIndex) {
-        return startByteIndex >= getStartByteIndex() && startByteIndex < getStartByteIndex() + length();
-    }
-
     public String toString() {
         return Utils.formatAsFourByteHexString(startByte) + " " + kind + " build number " + Utils.formatAsFourByteHexString(build);
     }

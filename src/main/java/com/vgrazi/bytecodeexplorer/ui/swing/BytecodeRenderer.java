@@ -84,8 +84,8 @@ public class BytecodeRenderer {
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.pack();
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        int pos = 150;
-        frame.setBounds(pos + 200, pos, screenSize.width - pos * 2, screenSize.height - pos * 2);
+        int pos = 50;
+        frame.setBounds(pos, pos, screenSize.width - pos * 2, screenSize.height - pos * 2);
         frame.setVisible(true);
         return frame;
     }

@@ -38,10 +38,6 @@ public class CountSection implements ClassFileSection {
         return 8;
     }
 
-    public boolean contains(int startByteIndex) {
-        return startByteIndex >= getStartByteIndex() && startByteIndex < getStartByteIndex() + length();
-    }
-
     @Override
     public String toString() {
         return Utils.formatAsFourByteHexString(getStartByteIndex()) + " Pool count:" + countBytes;

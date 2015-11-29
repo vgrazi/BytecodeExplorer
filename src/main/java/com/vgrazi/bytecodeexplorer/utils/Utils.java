@@ -35,7 +35,7 @@ public class Utils {
 
     }
 
-    public static String formatAsTwoByteHexString(long value) {
+    public static String formatAsTwoByteHexString(int value) {
         return String.format("%02X", value);
     }
 
@@ -43,19 +43,15 @@ public class Utils {
         return String.format("%04X", value);
     }
 
-    public static String formatAsBinary(long value) {
-        String string = Long.toBinaryString(value);
-        if (string.length() < 32) {
-            string = "00000000000000000000000000000000".substring(string.length()) + string;
+    public static String formatAsBinary(int value) {
+        String string = Integer.toBinaryString(value);
+        if (string.length() < 16) {
+            string = "0000000000000000".substring(string.length()) + string;
         }
         return
             string.substring(0, 4) + " " +
             string.substring(4, 8) + " " +
             string.substring(8, 12) + " " +
-            string.substring(12, 16) + " " +
-            string.substring(16, 20) + " " +
-            string.substring(20, 24) + " " +
-            string.substring(24, 28) + " " +
-            string.substring(28, 32);
+            string.substring(12, 16);
     }
 }

@@ -71,10 +71,6 @@ public class ConstantPoolSection implements ClassFileSection {
         return startByteIndex;
     }
 
-    public int getEndByteIndex() {
-        return getStartByteIndex() + length();
-    }
-
     public ClassFileSection getSection(int sectionIndex) {
         ConstantType type = null;
         if (sectionIndex < constants.size()) {
@@ -85,9 +81,5 @@ public class ConstantPoolSection implements ClassFileSection {
 
     public List<ConstantType> getConstants() {
         return constants;
-    }
-
-    public boolean contains(int byteIndex) {
-        return byteIndex >= getStartByteIndex() && byteIndex < getEndByteIndex();
     }
 }

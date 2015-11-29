@@ -13,10 +13,6 @@ public abstract class ConstantType implements ClassFileSection, Cloneable{
     private static List<ConstantType> constants;
     private int index;
 
-    public boolean contains(int byteIndex) {
-        return byteIndex >= getStartByteIndex() && byteIndex < getStartByteIndex() + length();
-    }
-
     public abstract int length();
 
     public abstract int getStartByteIndex();

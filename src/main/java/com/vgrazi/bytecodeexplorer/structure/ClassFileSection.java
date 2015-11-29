@@ -16,4 +16,13 @@ public interface ClassFileSection {
      * Index to the first byte of this section relative to the constant pool
      */
     int getStartByteIndex();
+
+    default int getEndByteIndex() {
+        return getStartByteIndex() + length();
+    }
+
+    default boolean contains(int startByteIndex) {
+        return startByteIndex >= getStartByteIndex() && startByteIndex < getStartByteIndex() + length();
+    }
+
 }

@@ -14,6 +14,8 @@ public class ClassFile {
     private CountSection constantPoolCountSection;
     private ConstantPoolSection constantPoolSection;
     private AccessFlagsSection accessFlagsSection;
+    private ClassSection thisClassSection;
+    private ClassSection superClassSection;
 
     public ClassFile(byte[] bytes) {
         this.bytes = bytes;
@@ -24,8 +26,8 @@ public class ClassFile {
         constantPoolSection = new ConstantPoolSection(constantPoolCountSection.getCountBytes(), bytes, 10);
         ConstantType.setConstants(constantPoolSection.getConstants());
         accessFlagsSection = new AccessFlagsSection(bytes, constantPoolSection.getEndByteIndex());
-//        var thisClassSection = new ThisClassSection(bytes, accessFlagsSection.getEndByteIndex());
-//        var superClassSection = new SuperClassSection(bytes, thisClassSection.getEndByteIndex());
+        thisClassSection = new ClassSection("This class", bytes, accessFlagsSection.getEndByteIndex(), constantPoolSection.getConstants());
+        superClassSection = new ClassSection("Super class", bytes, thisClassSection.getEndByteIndex(), constantPoolSection.getConstants());
 //        var interfacesCountSection = new CountSection(bytes, superClassSection.getEndByteIndex(), "Interfaces count");
 //        var interfacesSection = new InterfacesSection(bytes, interfacesCountSection.getEndByteIndex(), interfacesCountSection.getCount());
 //        var fieldsCountSection = new CountSection(bytes, interfacesSection.getEndByteIndex(), "Fields count");
@@ -81,8 +83,14 @@ public class ClassFile {
         else if(accessFlagsSection.contains(byteIndex)) {
             return constantPoolCountSection.getCountBytes() + 4;
         }
+        else if(thisClassSection.contains(byteIndex)) {
+            return constantPoolCountSection.getCountBytes() + 6;
+        }
+        else if(superClassSection.contains(byteIndex)) {
+            return constantPoolCountSection.getCountBytes() + 8;
+        }
         else
-        return constantPoolCountSection.getCountBytes() + 6;
+        return constantPoolCountSection.getCountBytes() + 10;
     }
 
     /**
@@ -106,6 +114,12 @@ public class ClassFile {
         }
         else if(accessFlagsSection.contains(byteIndex)) {
             return accessFlagsSection;
+        }
+        else if(thisClassSection.contains(byteIndex)) {
+            return thisClassSection;
+        }
+        else if(superClassSection.contains(byteIndex)) {
+            return superClassSection;
         }
 
         else {

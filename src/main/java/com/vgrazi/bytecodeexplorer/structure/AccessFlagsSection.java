@@ -27,13 +27,8 @@ public class AccessFlagsSection implements ClassFileSection {
         return startByte;
     }
 
-    public boolean contains(int startByteIndex) {
-        return startByteIndex >= getStartByteIndex() && startByteIndex < getStartByteIndex() + length();
-    }
-
-
     public String toString() {
-        String rval = "Class Access flags: " + accessFlags + ": " + Utils.formatAsBinary(accessFlags) + "<table align='left'>" +
+        String rval = "Class Access flags: " + accessFlags + ": 0x" + Utils.formatAsTwoByteHexString(accessFlags)+ ": " + Utils.formatAsBinary(accessFlags) + "<table align='left'>" +
               "<tr><td><span style='font-weight:"+((accessFlags & 0x0001) != 0 ? "bold'" : "normal'") + ">ACC_PUBLIC</span></td><td> 0x0001 </td><td>Declared public; may be accessed from outside its package.</td></tr>"
             + "<tr><td><span style='font-weight:"+((accessFlags & 0x0010) != 0 ? "bold'" : "normal'") + ">ACC_FINAL</span></td><td> 0x0010 </td><td>Declared final; no subclasses allowed.</td></tr>"
             + "<tr><td><span style='font-weight:"+((accessFlags & 0x0020) != 0 ? "bold'" : "normal'") + ">ACC_SUPER</span></td><td> 0x0020 </td><td>Treat superclass methods specially when invoked by the invokespecial instruction.</td></tr>"
