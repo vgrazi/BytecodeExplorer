@@ -31,9 +31,14 @@ public class BytecodeExplorerCellRenderer extends DefaultTableCellRenderer {
     public static void populateColors(ClassFile classFile) {
         colors = new Color[classFile.length()];
         System.out.println("Colors.length:" + colors.length);
+        int prevSectionIndex = -1;
         for (int i = 0; i < classFile.length(); i++) {
             int sectionIndex = classFile.getSectionIndex(i);
             colors[i] = backgroundColors[sectionIndex % backgroundColors.length];
+            if (prevSectionIndex != sectionIndex) {
+                prevSectionIndex = sectionIndex;
+//                System.out.printf("Color(%h): %d%n", i, sectionIndex);
+            }
         }
     }
 

@@ -35,8 +35,13 @@ public class Utils {
 
     }
 
-    public static String formatAsTwoByteHexString(int value) {
+    public static String formatAsOneByteHexString(int value) {
         return String.format("%02X", value);
+    }
+
+    public static String formatAsTwoByteHexString(int value) {
+        String format = String.format("%04X", value);
+        return format.substring(0,2) + " " + format.substring(2);
     }
 
     public static String formatAsFourByteHexString(long value) {

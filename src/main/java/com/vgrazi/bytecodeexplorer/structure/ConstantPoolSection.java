@@ -16,7 +16,7 @@ public class ConstantPoolSection implements ClassFileSection {
     private int length;
 
     private int elementCount;
-    private final List<ConstantType> constants = new ArrayList<>();
+    private final static List<ConstantType> constants = new ArrayList<>();
 
     public ConstantPoolSection(int elementCount, byte[] bytes, int index) {
 
@@ -79,7 +79,7 @@ public class ConstantPoolSection implements ClassFileSection {
         return type;
     }
 
-    public List<ConstantType> getConstants() {
+    public static List<ConstantType> getConstants() {
         return constants;
     }
 }

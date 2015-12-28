@@ -37,7 +37,7 @@ public class ConstantFloat extends ConstantType {
         long mantissa = IEEE754Converter.extractMantissa(IEE754, exponent);
         long mantissaBytes = IEEE754Converter.extractMantissaBytes(IEE754);
         explanation =
-            getFormattedConstantIndex() + Utils.formatAsTwoByteHexString(startByteIndex) + " ConstantFloat<br/>" +
+            getFormattedConstantIndex() + Utils.formatAsOneByteHexString(startByteIndex) + " ConstantFloat<br/>" +
             IEEE754Converter.getExplanation(IEE754, value, signBit, exponent, mantissa, mantissaBytes);
         // todo: continue here
     }

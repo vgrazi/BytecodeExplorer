@@ -85,7 +85,7 @@ Mantisa = 1 + sum(a(n)/(2^n))
 
     public static String getExplanation(int IEE754, double value, byte signBit, long exponent, long mantissa, long mantissaBytes) {
         return
-            Utils.formatAsTwoByteHexString(IEE754) + " =<br/>" +
+            Utils.formatAsOneByteHexString(IEE754) + " =<br/>" +
                 "&nbsp;" + Utils.formatAsBinary(IEE754) + "=<br>" +
                 IEEE754Converter.formatBinaryAsIEEE754(IEE754) + "<br>" +
                 "<font color='blue'>" + signBit + " sign bit:" + signBit + "</font><br/>" +

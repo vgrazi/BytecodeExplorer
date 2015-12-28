@@ -6,15 +6,20 @@ import com.vgrazi.bytecodeexplorer.utils.Utils;
  * Created by vgrazi on 8/13/15.
  */
 public class CountSection implements ClassFileSection {
+    private final String name;
+    private final int startByteIndex;
     /**
      * Actually the pool size + 1, as presented in the classfile
      */
     private int countBytes;
-    public CountSection(byte[] bytes) {
-        countBytes = Utils.getTwoBytes(bytes, getStartByteIndex());
+
+    public CountSection(String name, byte[] bytes, int startByteIndex) {
+        this.startByteIndex = startByteIndex;
+        countBytes = Utils.getTwoBytes(bytes, startByteIndex);
+        this.name = name;
     }
 
-    public int getCountBytes() {
+    public int getCount() {
         return countBytes;
     }
 
@@ -35,11 +40,11 @@ public class CountSection implements ClassFileSection {
      */
     @Override
     public int getStartByteIndex() {
-        return 8;
+        return startByteIndex;
     }
 
     @Override
     public String toString() {
-        return Utils.formatAsFourByteHexString(getStartByteIndex()) + " Pool count:" + countBytes;
+        return Utils.formatAsFourByteHexString(getStartByteIndex()) + " " + name + ":" + countBytes;
     }
 }
