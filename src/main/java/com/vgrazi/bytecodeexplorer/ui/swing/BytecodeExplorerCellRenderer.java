@@ -6,27 +6,18 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.*;
 
-/**
- * Created by vgrazi on 11/14/15.
- */
 public class BytecodeExplorerCellRenderer extends DefaultTableCellRenderer {
     static final int TABLE_COLUMNS = 16;
-    private BytecodeRenderer bytecodeRenderer;
-    private ClassFile classFile;
     private static Color[] colors;
 
     //    private static Color[] backgroundColors = new Color[]{Color.pink, Color.yellow, Color.ORANGE, Color.LIGHT_GRAY, Color.white};
     private static final Color[] backgroundColors = new Color[]{Color.LIGHT_GRAY, Color.white};
 
-    public BytecodeExplorerCellRenderer(BytecodeRenderer bytecodeRenderer, ClassFile classFile) {
-        this.bytecodeRenderer = bytecodeRenderer;
-
-        this.classFile = classFile;
+    public BytecodeExplorerCellRenderer() {
     }
 
     /**
      * Call this once before instantiating any of these cell renderers
-     * @param classFile
      */
     public static void populateColors(ClassFile classFile) {
         colors = new Color[classFile.length()];
@@ -47,7 +38,7 @@ public class BytecodeExplorerCellRenderer extends DefaultTableCellRenderer {
         Component component = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
         int byteIndex = row * TABLE_COLUMNS + column;
         Color color;
-        if(byteIndex >= bytecodeRenderer.getStartHoverBlock() && byteIndex <= bytecodeRenderer.getEndHoverBlock()) {
+        if(byteIndex >= PointSelector.getStartHighlightBlock() && byteIndex <= PointSelector.getEndHighlightBlock()) {
             color = Color.yellow;
         }
         else if (byteIndex < colors.length) {
