@@ -51,8 +51,8 @@ public class BytecodeRenderer {
 
     private void rerender(JTable hexTable, JFrame frame) {
         // refresh the layout
-        hexTable.doLayout();
-        frame.getContentPane().doLayout();
+        frame.validate();
+        frame.repaint();
 
     }
 
