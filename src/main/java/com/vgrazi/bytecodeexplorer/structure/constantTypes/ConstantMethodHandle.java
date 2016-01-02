@@ -56,7 +56,7 @@ public class ConstantMethodHandle extends ConstantType {
 
     public String toString() {
         List<ConstantType> constants = getConstants();
-        String string = getFormattedConstantIndex() + Utils.formatAsFourByteHexString(startByteIndex) + " MethodHandle" +
+        String string = getFormattedAddressAndConstantIndex() + " MethodHandle" +
             referenceKind + " " + getKind() + " <span style='color:blue'>#" + referenceIndex + "</span>";
         if (constants != null) {
             string +=

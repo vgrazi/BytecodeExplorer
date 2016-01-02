@@ -28,7 +28,7 @@ public class ConstantString extends ConstantType {
 
     public String toString() {
         List<ConstantType> constants = getConstants();
-        String string = getFormattedConstantIndex() + "String\t\t\t#" + stringIndex + "<br/>";
+        String string = getFormattedAddressAndConstantIndex() + "String\t\t\t#" + stringIndex + "<br/>";
         if (constants != null) {
             string += constants.get(stringIndex - 1).toString();
         }

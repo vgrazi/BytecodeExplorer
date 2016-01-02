@@ -31,7 +31,7 @@ public class ConstantMethodRef extends ConstantType {
 
     public String toString() {
         List<ConstantType> constants = getConstants();
-        String string = getFormattedConstantIndex() + Utils.formatAsFourByteHexString(startByteIndex) + " Methodref <span style='color:blue'>" +
+        String string = getFormattedAddressAndConstantIndex() + " Methodref <span style='color:blue'>" +
             "#" + classIndex + "</span>.<span style='color:red'>#" + nameAndTypeIndex + "</span>";
         if (constants != null) {
             string +=

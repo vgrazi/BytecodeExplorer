@@ -31,7 +31,7 @@ public class ConstantInterfaceRef extends ConstantType {
 
     public String toString() {
         List<ConstantType> constants = getConstants();
-        String string = getFormattedConstantIndex() + Utils.formatAsFourByteHexString(startByteIndex);
+        String string = getFormattedAddressAndConstantIndex();
         if (constants != null) {
             string +=
                 "<span style='color:blue'>" + constants.get(classIndex - 1) + "</span><br/>" +

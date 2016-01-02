@@ -31,8 +31,8 @@ public class ConstantFieldRef extends ConstantType {
     }
 
     public String toString() {
-        String string = getFormattedConstantIndex() + Utils.formatAsFourByteHexString(startByteIndex) +
-            " Fieldref\t\t" +
+        String string = getFormattedAddressAndConstantIndex() +
+            "Fieldref\t\t" +
             "<span style='color:blue'>#" + classIndex + "</span>." +
             "<span style='color:red'>#" + nameAndTypeIndex  + "</span>";
         List<ConstantType> constants = getConstants();

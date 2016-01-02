@@ -32,7 +32,7 @@ public class ConstantNameAndTypeInfo extends ConstantType {
     @Override
     public String toString() {
         List<ConstantType> constants = getConstants();
-        String string = getFormattedConstantIndex() + "NameAndType " +
+        String string = getFormattedAddressAndConstantIndex() + "NameAndType " +
             "<span style='color:blue'>#" + nameIndex + "</span>" +
             ":<span style='color:red'>#" + descriptorIndex ;
         if (constants != null) {

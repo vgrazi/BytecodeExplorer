@@ -49,7 +49,7 @@ public class ConstantUTF8 extends ConstantType {
 
     @Override
     public String toString() {
-        return getFormattedConstantIndex() + Utils.formatAsFourByteHexString(startByteIndex) + " Utf8\t\t\t" + stringValue;
+        return getFormattedAddressAndConstantIndex() + " Utf8\t\t\t" + stringValue;
     }
 }
 

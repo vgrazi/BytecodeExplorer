@@ -25,7 +25,7 @@ public class ConstantInteger extends ConstantType {
     }
 
     public String toString() {
-        String string = getFormattedConstantIndex() + "ConstantInteger\t\t\t" + intValue + "<br/>";
+        String string = getFormattedAddressAndConstantIndex() + "ConstantInteger\t\t\t" + intValue + "<br/>";
         return string;
     }
 
