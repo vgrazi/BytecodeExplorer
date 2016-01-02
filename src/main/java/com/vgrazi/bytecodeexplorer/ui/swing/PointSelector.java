@@ -40,19 +40,14 @@ public class PointSelector implements MouseListener, MouseMotionListener{
         int column = hexTable.columnAtPoint(point);
         int byteIndex = row * TABLE_COLUMNS + column;
         ClassFileSection section = classFile.getSection(byteIndex);
-        int startHighlightBlock = section.getStartByteIndex();
-/*
-  // the problem here is that mouseEntered, mouseExited, and mouseMoved all call render, which sets this.startHighlightBlock
-  // before mouseClicked ever gets to it
+        int clickedStartIndex = section.getStartByteIndex();
 
-        if(getStartHighlightBlock() == startHighlightBlock) {
+        if(this.clickedStartIndex == clickedStartIndex) {
             System.out.printf("resetting to null start:%d end:%d%n", getStartHighlightBlock(), getEndHighlightBlock());
             setClickedStartIndex(-1);
         }
-        else
-//*/
-        {
-            setClickedStartIndex(startHighlightBlock);
+        else {
+            setClickedStartIndex(clickedStartIndex);
             System.out.printf("setting point to " + point);
             renderPoint(e);
         }
