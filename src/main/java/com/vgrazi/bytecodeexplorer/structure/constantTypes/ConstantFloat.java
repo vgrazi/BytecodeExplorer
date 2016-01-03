@@ -34,10 +34,9 @@ public class ConstantFloat extends ConstantType {
         double value = IEEE754Converter.convertToDecimal(IEE754);
         byte signBit = IEEE754Converter.extractSignBit(IEE754);
         long exponent = IEEE754Converter.extractExponent(IEE754);
-        long mantissa = IEEE754Converter.extractMantissa(IEE754, exponent);
+        double mantissa = IEEE754Converter.extractMantissa(IEE754, exponent);
         long mantissaBytes = IEEE754Converter.extractMantissaBytes(IEE754);
-        explanation =
-            getFormattedAddressAndConstantIndex() + " ConstantFloat<br/>" +
+        explanation = getFormattedAddressAndConstantIndex() + " ConstantFloat<br/>" +
             IEEE754Converter.getExplanation(IEE754, value, signBit, exponent, mantissa, mantissaBytes);
         // todo: continue here
     }

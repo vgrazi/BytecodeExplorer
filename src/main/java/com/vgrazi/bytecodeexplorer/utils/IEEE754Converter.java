@@ -18,9 +18,9 @@ Special cases:
  Otherwise:
 Bit  1 is the sign bit (0="+" 1="-")
 Bits 2 to 9 are the exponent (first subtract 127)
-Bit 10 to 31 are the mantisa,
+Bit 10 to 31 are the mantissa,
 let a(n) be the nth (beginning from n=1) byte (0 or 1) in the mantissa
-Mantisa = 1 + sum(a(n)/(2^n))
+Mantissa = 1 + sum(a(n)/(2^n))
 */
     public static double convertToDecimal(long value) {
         if (value == 0) {
@@ -38,7 +38,7 @@ Mantisa = 1 + sum(a(n)/(2^n))
 
         long exponent = extractExponent(value);
 
-        long mantissa = extractMantissa(value, exponent);
+        double mantissa = extractMantissa(value, exponent);
         double rval = Math.pow(2, exponent) * mantissa;
 
         if (signBit == 1) {
@@ -59,10 +59,10 @@ Mantisa = 1 + sum(a(n)/(2^n))
         return exponent;
     }
 
-    public static long extractMantissa(long value, long exponent) {
-        long mantissa = 0;
+    public static double extractMantissa(long value, long exponent) {
+        double mantissa = 0;
         long mantissaBits = value & 0x7fffff;
-        int divisor = 2;
+        float divisor = 2;
         for (int i = 22; i >= 0; i--) {
             int nextBit = (int) ((mantissaBits >> i) & 0x1);
             mantissa += nextBit / divisor;
@@ -83,32 +83,43 @@ Mantisa = 1 + sum(a(n)/(2^n))
         return mantissa;
     }
 
-    public static String getExplanation(int IEE754, double value, byte signBit, long exponent, long mantissa, long mantissaBytes) {
+    public static String getExplanation(int IEE754, double value, byte signBit, long exponent, double mantissa, long mantissaBytes) {
+        String IEE754HexString = Utils.formatAsHexString(IEE754);
+        String IEE754BinaryString = Utils.formatAs32BitSectionedBinary(IEE754);
+        String IEEE754Regrouped = IEEE754Converter.formatBinaryAsIEEE754(IEE754);
+        String exponentString = Utils.formatAsFourByteHexString(exponent + 127);
+        String mantissaString = Utils.formatAsFourByteHexString(mantissaBytes);
         return
-            Utils.formatAsOneByteHexString(IEE754) + " =<br/>" +
-                "&nbsp;" + Utils.formatAsBinary(IEE754) + "=<br>" +
-                IEEE754Converter.formatBinaryAsIEEE754(IEE754) + "<br>" +
+            IEE754HexString + " =<br/>" +
+                "&nbsp;" + IEE754BinaryString + "=<br>" +
+                IEEE754Regrouped + "<br>" +
                 "<font color='blue'>" + signBit + " sign bit:" + signBit + "</font><br/>" +
-                "<font color='red'>" + Utils.formatAsFourByteHexString(exponent + 127) + " exponent:" + (exponent + 127) + "-127=" + exponent + "</font><br/>" +
-                "<font color='green'>" + Utils.formatAsFourByteHexString(mantissaBytes) + " mantissa:" + mantissa + "</font><br/><span class='tab'>&nbsp;</span>" +
+                "<font color='red'>" + exponentString + " exponent:" + (exponent + 127) + "-127=" + exponent + "</font><br/>" +
+                "<font color='green'>" + mantissaString + " mantissa:" + mantissa + "</font><br/><span class='tab'>&nbsp;</span>" +
                 +value + " = <font color='blue'>" + (signBit == 1 ? "-1" : "+1") + "</font> * 2^<font color='red'>" + exponent + "</font> * <font color='green'>" + mantissa + "</font>";
     }
 
-    public static String formatBinaryAsIEEE754(int value) {
-        String string = Integer.toBinaryString(value);
-        if (string.length() < 16) {
-            string = "0000000000000000".substring(string.length()) + string;
-        }
+    public static String formatBinaryAsIEEE754(int iee754) {
+        String string = Utils.formatAs32BitBinary(iee754);
+        String signBit = string.substring(0, 1);
+        String exponent1 = string.substring(1, 5);
+        String exponent2 = string.substring(5, 9);
+        String mantissa1 = string.substring(9, 12);
+        String mantissa2 = string.substring(12, 16);
+        String mantissa3 = string.substring(16, 20);
+        String mantissa4 = string.substring(20, 24);
+        String mantissa5 = string.substring(24, 28);
+        String mantissa6 = string.substring(28, 32);
         return
-            "<font color='blue'>" + string.substring(0, 1) + "</font> " +
-            "<font color='red'>" + string.substring(1, 5) + "</font> " +
-            "<font color='red'>" + string.substring(5, 9) + "</font> " +
-            "<font color='green'>" + string.substring(9, 12) + "</font> " +
-            "<font color='green'>" + string.substring(12, 16) + "</font> ";
-//            "<font color='green'>" + string.substring(16, 20) + "</font> " +
-//            "<font color='green'>" + string.substring(20, 24) + "</font> " +
-//            "<font color='green'>" + string.substring(24, 28) + "</font> " +
-//            "<font color='green'>" + string.substring(28, 32) + "</font>";
+            "<font color='blue'>" + signBit + "</font> " +
+            "<font color='red'>" + exponent1 + "</font> " +
+            "<font color='red'>" + exponent2 + "</font> " +
+            "<font color='green'>" + mantissa1 + "</font> " +
+            "<font color='green'>" + mantissa2 + "</font> " +
+            "<font color='green'>" + mantissa3 + "</font> " +
+            "<font color='green'>" + mantissa4 + "</font> " +
+            "<font color='green'>" + mantissa5 + "</font> " +
+            "<font color='green'>" + mantissa6 + "</font>";
     }
 }
 

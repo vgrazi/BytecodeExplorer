@@ -32,10 +32,9 @@ public class Utils {
             System.out.printf("#%2d %2d %s%n",
                 (i + 1), constantType.getTag(), constantType);
         }
-
     }
 
-    public static String formatAsOneByteHexString(int value) {
+    public static String formatAsHexString(int value) {
         return String.format("%02X", value);
     }
 
@@ -58,5 +57,26 @@ public class Utils {
             string.substring(4, 8) + " " +
             string.substring(8, 12) + " " +
             string.substring(12, 16);
+    }
+
+    public static String formatAs32BitSectionedBinary(long value) {
+        String string = formatAs32BitBinary(value);
+        return
+            string.substring(0, 4) + " " +
+            string.substring(4, 8) + " " +
+            string.substring(8, 12) + " " +
+            string.substring(12, 16) + " " +
+            string.substring(16, 20) + " " +
+            string.substring(20, 24) + " " +
+            string.substring(24, 28) + " " +
+            string.substring(28, 32);
+    }
+
+    public static String formatAs32BitBinary(long value) {
+        String string = Long.toBinaryString(value);
+        if (string.length() < 32) {
+            string = "00000000000000000000000000000000".substring(string.length()) + string;
+        }
+        return string;
     }
 }
