@@ -1,6 +1,9 @@
 package com.vgrazi.bytecodeexplorer.ui.swing;
 
+import com.vgrazi.bytecodeexplorer.structure.ClassAccessFlagsSection;
 import com.vgrazi.bytecodeexplorer.structure.ClassFile;
+import com.vgrazi.bytecodeexplorer.structure.ClassFileSection;
+import com.vgrazi.bytecodeexplorer.structure.CountSection;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -18,6 +21,7 @@ public class BytecodeExplorerCellRenderer extends DefaultTableCellRenderer {
 
     /**
      * Call this once before instantiating any of these cell renderers
+     * Alternates block colors, except for count and class access flags sections, which are pink
      */
     public static void populateColors(ClassFile classFile) {
         colors = new Color[classFile.length()];
@@ -25,7 +29,16 @@ public class BytecodeExplorerCellRenderer extends DefaultTableCellRenderer {
         int prevSectionIndex = -1;
         for (int i = 0; i < classFile.length(); i++) {
             int sectionIndex = classFile.getSectionIndex(i);
-            colors[i] = backgroundColors[sectionIndex % backgroundColors.length];
+            ClassFileSection section = classFile.getSection(i);
+            if(section instanceof CountSection) {
+                colors[i] = Color.pink;
+            }
+            else if(section instanceof ClassAccessFlagsSection) {
+                colors[i] = Color.pink;
+            }
+            else {
+                colors[i] = backgroundColors[sectionIndex % backgroundColors.length];
+            }
             if (prevSectionIndex != sectionIndex) {
                 prevSectionIndex = sectionIndex;
 //                System.out.printf("Color(%h): %d%n", i, sectionIndex);
