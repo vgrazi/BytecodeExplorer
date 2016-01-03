@@ -1,6 +1,8 @@
 package com.vgrazi.bytecodeexplorer.utils;
 
+import com.vgrazi.bytecodeexplorer.structure.ConstantPoolSection;
 import com.vgrazi.bytecodeexplorer.structure.constantTypes.ConstantType;
+import com.vgrazi.bytecodeexplorer.structure.constantTypes.ConstantUTF8;
 
 import java.util.List;
 
@@ -79,4 +81,31 @@ public class Utils {
         }
         return string;
     }
+
+    public static String getDirectString(int index) {
+        List<ConstantType> constants = ConstantPoolSection.getConstants();
+        ConstantUTF8 utfConstant = (ConstantUTF8) constants.get(index - 1);
+        String stringValue = escape(utfConstant.getStringValue());
+        return stringValue;
+    }
+
+    private static String escape(String stringValue) {
+        return(stringValue.replaceAll("\\<", "&lt;"));
+    }
+
+//    public static String getIndirectString(int index) {
+//        List<ConstantType> constants = ConstantPoolSection.getConstants();
+//        // index points to a constant. Extract that, then find where it points
+//        ConstantType constant = constants.get(index -1);
+//        var utfIndex = constant.getReferenceIndex();
+//        return getDirectString(utfIndex);
+//    }
+
+//    function getText(bytes, index) {
+//        var type = getTwoBytes(bytes, index);
+//        var length = getTwoBytes(bytes, index + 2);
+//        var array = bytes.slice(index + 4, index + 4 + length);
+//        return bin2String(array);
+//
+//    }
 }

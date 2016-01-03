@@ -13,7 +13,6 @@ public class BytecodeExplorerCellRenderer extends DefaultTableCellRenderer {
     static final int TABLE_COLUMNS = 16;
     private static Color[] colors;
 
-    //    private static Color[] backgroundColors = new Color[]{Color.pink, Color.yellow, Color.ORANGE, Color.LIGHT_GRAY, Color.white};
     private static final Color[] backgroundColors = new Color[]{Color.LIGHT_GRAY, Color.white};
 
     public BytecodeExplorerCellRenderer() {

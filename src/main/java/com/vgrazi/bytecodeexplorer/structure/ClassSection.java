@@ -12,13 +12,11 @@ public class ClassSection implements ClassFileSection {
     private final int classIndex;
     private final String name;
     private int startByte;
-    private List<ConstantType> constants;
 
-    public ClassSection(String name, byte[] bytes, int startByte, List<ConstantType> constants) {
+    public ClassSection(String name, byte[] bytes, int startByte) {
         this.name = name;
 
         this.startByte = startByte;
-        this.constants = constants;
         classIndex = Utils.getTwoBytes(bytes, getStartByteIndex());
     }
 
@@ -37,6 +35,7 @@ public class ClassSection implements ClassFileSection {
         String rval = Utils.formatAsFourByteHexString(getStartByteIndex()) + " " +
             name + " " +
             "<span style='color:blue'>#" + classIndex + "</span>";
+        List<ConstantType> constants = ConstantPoolSection.getConstants();
         if (constants != null) {
             rval += "<br/>" +
                 "<span style='color:blue'>" + constants.get(classIndex - 1) + "</span><br/>";

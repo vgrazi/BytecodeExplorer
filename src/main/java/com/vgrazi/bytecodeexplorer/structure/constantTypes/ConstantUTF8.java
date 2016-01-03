@@ -47,6 +47,10 @@ public class ConstantUTF8 extends ConstantType {
         return startByteIndex;
     }
 
+    public String getStringValue() {
+        return stringValue;
+    }
+
     @Override
     public String toString() {
         return getFormattedAddressAndConstantIndex() + " Utf8\t\t\t" + stringValue;
