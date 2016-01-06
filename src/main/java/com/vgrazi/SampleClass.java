@@ -13,7 +13,7 @@ public class SampleClass implements Serializable, Cloneable, SampleInterface {
     public float myWeight = 175f;
     public float myHeight = -6.5f;
     public Method myMethod;
-    public SampleClass() throws NoSuchMethodException {
+    public SampleClass() throws NoSuchMethodException, IllegalArgumentException {
 
         myMethod = SampleClass.class.getMethod("fibonacci", int.class);
     }

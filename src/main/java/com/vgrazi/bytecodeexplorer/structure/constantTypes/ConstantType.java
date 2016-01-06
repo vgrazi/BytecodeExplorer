@@ -1,6 +1,7 @@
 package com.vgrazi.bytecodeexplorer.structure.constantTypes;
 
 import com.vgrazi.bytecodeexplorer.structure.ClassFileSection;
+import com.vgrazi.bytecodeexplorer.structure.ConstantPoolSection;
 import com.vgrazi.bytecodeexplorer.utils.Utils;
 
 import java.util.List;
@@ -27,7 +28,7 @@ public abstract class ConstantType implements ClassFileSection, Cloneable{
     }
 
     public static List<ConstantType> getConstants() {
-        return constants;
+        return ConstantPoolSection.getConstants();
     }
 
 

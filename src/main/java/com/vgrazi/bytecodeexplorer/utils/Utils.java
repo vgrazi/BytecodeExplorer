@@ -40,6 +40,11 @@ public class Utils {
         return String.format("%02X", value);
     }
 
+    public static String formatAsOneByteHexString(int value) {
+        String format = String.format("%02X", value);
+        return format.substring(0, 2);
+    }
+
     public static String formatAsTwoByteHexString(int value) {
         String format = String.format("%04X", value);
         return format.substring(0,2) + " " + format.substring(2);
@@ -59,6 +64,25 @@ public class Utils {
             string.substring(4, 8) + " " +
             string.substring(8, 12) + " " +
             string.substring(12, 16);
+    }
+
+    /**
+     * Returns the number of bytes specified from the supplied array formatted as comma delimited hex
+     * @param bytesArray
+     * @param index
+     * @param length
+     * @return
+     */
+    public static String formatAsHexStringFromArray(byte[] bytesArray, int index, int length) {
+        StringBuilder rval = new StringBuilder();
+        for(int i = 0; i < length; i++) {
+            byte bite = bytesArray[index + i];
+            if(i > 0) {
+                rval.append(",");
+            }
+            rval.append(formatAsOneByteHexString(bite));
+        }
+        return rval.toString();
     }
 
     public static String formatAs32BitSectionedBinary(long value) {

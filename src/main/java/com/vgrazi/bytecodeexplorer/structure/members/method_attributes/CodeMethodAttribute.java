@@ -16,6 +16,7 @@ package com.vgrazi.bytecodeexplorer.structure.members.method_attributes;
 //    attribute_info attributes[attributes_count];
 //}
 
+import com.vgrazi.bytecodeexplorer.utils.BytecodeInstructionDecompiler;
 import com.vgrazi.bytecodeexplorer.utils.Utils;
 
 /**
@@ -30,16 +31,17 @@ public class CodeMethodAttribute extends MethodAttribute {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new StringBuilder("<table>");
 
-        sb.append("Name index:" + getAttributeNameIndex()).append("<br/>");
-        sb.append("Name:" + getAttributeName()).append("<br/>");
-        sb.append("Attributes length:" + Utils.getFourBytes(getBytes(), getStartByteIndex() + 2)).append("<br/>");
-        sb.append("Max stack:" + Utils.getTwoBytes(getBytes(), getStartByteIndex() + 6)).append("<br/>");
-        sb.append("Max locals:" + Utils.getTwoBytes(getBytes(), getStartByteIndex() + 8)).append("<br/>");
-        sb.append("Code length" + Utils.getFourBytes(getBytes(), getStartByteIndex() + 10)).append("<br/>");
-
+        getFormattedNameAndLength(sb);
+        sb.append("<tr><td>" + Utils.formatAsFourByteHexString(getStartByteIndex() + 6) + "</td><td>Max stack:" +         "</td><td>" + Utils.getTwoBytes(getBytes(), getStartByteIndex() + 6)).append("</td></tr>");
+        sb.append("<tr><td>" + Utils.formatAsFourByteHexString(getStartByteIndex() + 8) + "</td><td>Max locals:" +        "</td><td>" + Utils.getTwoBytes(getBytes(), getStartByteIndex() + 8)).append("</td></tr>");
+        int codeLength = Utils.getFourBytes(getBytes(), getStartByteIndex() + 10);
+        sb.append("<tr><td>" + Utils.formatAsFourByteHexString(getStartByteIndex() + 10) + "</td><td>Code length" +        "</td><td>" + codeLength).append("</td></tr>");
+        sb.append(BytecodeInstructionDecompiler.decompile(getStartByteIndex()+14, getBytes(), codeLength));
+        sb.append("</table>");
 
         return sb.toString();
     }
+
 }

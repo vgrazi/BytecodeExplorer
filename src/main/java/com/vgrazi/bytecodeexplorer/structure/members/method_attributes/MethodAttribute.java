@@ -15,6 +15,7 @@ import com.vgrazi.bytecodeexplorer.utils.Utils;
 public abstract class MethodAttribute implements ClassFileSection, Cloneable{
     private int startByteIndex;
     private int attributeNameIndex;
+    private String attributeName;
     private int attributeLength;
     private byte[] bytesArray;
 
@@ -23,7 +24,10 @@ public abstract class MethodAttribute implements ClassFileSection, Cloneable{
 
 
     public String getAttributeName() {
-        return Utils.getDirectString(attributeNameIndex);
+        if(attributeName == null) {
+            attributeName = Utils.getDirectString(attributeNameIndex);
+        }
+        return attributeName;
     }
 
     public int getAttributeNameIndex() {
@@ -35,7 +39,7 @@ public abstract class MethodAttribute implements ClassFileSection, Cloneable{
     }
 
 
-    //    u2 attribute_name_index;
+//    u2 attribute_name_index;
 //    u4 attribute_length;
 
     public int length() {
@@ -62,6 +66,15 @@ public abstract class MethodAttribute implements ClassFileSection, Cloneable{
      * @return the identifier (eg Code, Exceptions, etc) of this method attribute
      */
     public abstract String getIdentifier();
+
+    /**
+     * Since all subclasses need this, we define this method here in the base class
+     * @param sb
+     */
+    public void getFormattedNameAndLength(StringBuilder sb) {
+        sb.append("<tr><td>" + Utils.formatAsFourByteHexString(getStartByteIndex()) +     "</td><td>Name index:" +        "</td><td>#" + getAttributeNameIndex() + ": \"" + getAttributeName()).append("\"</td></tr>");
+        sb.append("<tr><td>" + Utils.formatAsFourByteHexString(getStartByteIndex() + 2) + "</td><td>Attributes length:" + "</td><td>" + Utils.getFourBytes(getBytes(), getStartByteIndex() + 2)).append("</td></tr>");
+    }
 
     @Override
     public Object clone() {

@@ -30,6 +30,10 @@ public class ClassSection implements ClassFileSection {
         return startByte;
     }
 
+    public String getName() {
+        return name;
+    }
+
 
     public String toString() {
         String rval = Utils.formatAsFourByteHexString(getStartByteIndex()) + " " +

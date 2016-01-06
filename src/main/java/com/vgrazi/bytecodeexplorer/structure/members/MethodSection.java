@@ -25,10 +25,13 @@ public class MethodSection implements ClassFileSection {
     private final int attributesCount;
     private final int accessFlags;
     private final int nameIndex;
+    private final String name;
 
     public MethodSection(byte[] bytesArray, int startByte) {
         accessFlags = Utils.getTwoBytes(bytesArray, startByte);
         nameIndex = Utils.getTwoBytes(bytesArray, startByte + 2);
+        name = Utils.getDirectString(nameIndex);
+
         descriptorIndex = Utils.getTwoBytes(bytesArray, startByte + 4);
         attributesCount = Utils.getTwoBytes(bytesArray, startByte + 6);
         attributes = new MethodAttribute[attributesCount];
