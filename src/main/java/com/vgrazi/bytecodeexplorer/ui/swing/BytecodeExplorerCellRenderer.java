@@ -50,7 +50,10 @@ public class BytecodeExplorerCellRenderer extends DefaultTableCellRenderer {
         Component component = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
         int byteIndex = row * TABLE_COLUMNS + column;
         Color color;
-        if(byteIndex >= PointSelector.getStartHighlightBlock() && byteIndex <= PointSelector.getEndHighlightBlock()) {
+        if(byteIndex == PointSelector.getMouseByteIndex()) {
+            color = Color.green;
+        }
+        else if(byteIndex >= PointSelector.getStartHighlightBlock() && byteIndex <= PointSelector.getEndHighlightBlock()) {
             color = Color.yellow;
         }
         else if (byteIndex < colors.length) {

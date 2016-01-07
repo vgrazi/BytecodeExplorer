@@ -20,6 +20,7 @@ public class PointSelector implements MouseListener, MouseMotionListener{
     private static int startHighlightBlock = -1;
     private static int endHighlightBlock = -1;
     private ClassFile classFile;
+    private static int mouseByteIndex;
 
     public PointSelector(InstructionRenderer instructionRenderer, JTable hexTable, ClassFile classFile) {
 
@@ -36,9 +37,7 @@ public class PointSelector implements MouseListener, MouseMotionListener{
     @Override
     public void mouseClicked(MouseEvent e) {
         Point point = e.getPoint();
-        int row = hexTable.rowAtPoint(point);
-        int column = hexTable.columnAtPoint(point);
-        int byteIndex = row * TABLE_COLUMNS + column;
+        int byteIndex = getByteIndex(point);
         ClassFileSection section = classFile.getSection(byteIndex);
         int clickedStartIndex = section.getStartByteIndex();
 
@@ -53,12 +52,24 @@ public class PointSelector implements MouseListener, MouseMotionListener{
         }
     }
 
+    /**
+     * Returns the byte index into the hex table associated with the screen coordinates
+     * @param point
+     * @return
+     */
+    private int getByteIndex(Point point) {
+        int row = hexTable.rowAtPoint(point);
+        int column = hexTable.columnAtPoint(point);
+        return row * TABLE_COLUMNS + column;
+    }
+
 
     private void renderPoint(MouseEvent e) {
-        Point point;
         int byteIndex;
         if (isInside()) {
-            point = e.getPoint();
+            // work with Point in case mouseByteIndex is reassigned in a contending thread
+            Point point = e.getPoint();
+            mouseByteIndex = getByteIndex(point);
             int row = hexTable.rowAtPoint(point);
             int column = hexTable.columnAtPoint(point);
             byteIndex = row * TABLE_COLUMNS + column;
@@ -79,9 +90,8 @@ public class PointSelector implements MouseListener, MouseMotionListener{
             ClassFileSection section = classFile.getSection(byteIndex);
             startHighlightBlock = section.getStartByteIndex();
             endHighlightBlock = startHighlightBlock + section.length() - 1;
-            hexTable.repaint();
         }
-
+        hexTable.repaint();
     }
 
     public static int getStartHighlightBlock() {
@@ -90,6 +100,10 @@ public class PointSelector implements MouseListener, MouseMotionListener{
 
     public static int getEndHighlightBlock() {
         return endHighlightBlock;
+    }
+
+    public static int getMouseByteIndex() {
+        return mouseByteIndex;
     }
 
     @Override
@@ -101,6 +115,9 @@ public class PointSelector implements MouseListener, MouseMotionListener{
     @Override
     public void mouseExited(MouseEvent e) {
         setInside(false);
+
+        // reset the mouse byte on exit so it does not stay rendered
+        mouseByteIndex = -1;
         renderPoint(e);
     }
 
@@ -135,6 +152,5 @@ public class PointSelector implements MouseListener, MouseMotionListener{
     public void mouseDragged(MouseEvent e) {
 
     }
-
 }
 
