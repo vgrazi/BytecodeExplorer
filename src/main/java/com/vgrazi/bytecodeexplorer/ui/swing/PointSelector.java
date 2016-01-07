@@ -20,7 +20,7 @@ public class PointSelector implements MouseListener, MouseMotionListener{
     private static int startHighlightBlock = -1;
     private static int endHighlightBlock = -1;
     private ClassFile classFile;
-    private static int mouseByteIndex;
+    private static int mouseByteIndex = -1;
 
     public PointSelector(InstructionRenderer instructionRenderer, JTable hexTable, ClassFile classFile) {
 

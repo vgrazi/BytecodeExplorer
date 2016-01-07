@@ -44,14 +44,10 @@ public class BytecodeRenderer {
 
         // add the instruction panel to the frame
         addInstructionPanel(frame);
-        rerender(frame);
-    }
 
-    private void rerender(JFrame frame) {
         // refresh the layout
         frame.validate();
         frame.repaint();
-
     }
 
     private void addInstructionRenderer(JTable hexTable) {
