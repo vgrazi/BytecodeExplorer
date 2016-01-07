@@ -60,10 +60,10 @@ public class MethodSection implements ClassFileSection {
         String descriptor = Utils.getDirectString(descriptorIndex);
         String rval = "Method:<br/>" +
             "<table>" +
-            "<tr><td class='method-byte-address'>" + Utils.formatAsFourByteHexString(startByteIndex + 0) + "</td><td class='method-byte-address'>" + Utils.formatAsHexString(accessFlags) + "</td><td>Access flags:" + Utils.formatAsBinary(accessFlags) + "</td></tr>" +
-            "<tr><td class='method-byte-address'>" + Utils.formatAsFourByteHexString(startByteIndex + 2) + "</td><td class='method-byte-address'>" + Utils.formatAsHexString(nameIndex) + "</td><td>#" + nameIndex + " " + name + "</td></tr>" +
-            "<tr><td class='method-byte-address'>" + Utils.formatAsFourByteHexString(startByteIndex + 4) + "</td><td class='method-byte-address'>" + Utils.formatAsHexString(descriptorIndex) + "</td><td>#" + descriptorIndex + " " + descriptor + "</td></tr>" +
-            "<tr><td class='method-byte-address'>" + Utils.formatAsFourByteHexString(startByteIndex + 6) + "</td><td class='method-byte-address'>" + Utils.formatAsHexString(attributesCount) + "</td><td>Attributes count: " + attributesCount + "</td></tr>"
+            "<tr><td class='method-byte-address'>" + getAddress(startByteIndex + 0) + "</td><td class='method-byte-address'>" + Utils.formatAsHexString(accessFlags) + "</td><td>Access flags:" + Utils.formatAsBinary(accessFlags) + "</td></tr>" +
+            "<tr><td class='method-byte-address'>" + getAddress(startByteIndex + 2) + "</td><td class='method-byte-address'>" + Utils.formatAsHexString(nameIndex) + "</td><td>#" + nameIndex + " " + name + "</td></tr>" +
+            "<tr><td class='method-byte-address'>" + getAddress(startByteIndex + 4) + "</td><td class='method-byte-address'>" + Utils.formatAsHexString(descriptorIndex) + "</td><td>#" + descriptorIndex + " " + descriptor + "</td></tr>" +
+            "<tr><td class='method-byte-address'>" + getAddress(startByteIndex + 6) + "</td><td class='method-byte-address'>" + Utils.formatAsHexString(attributesCount) + "</td><td>Attributes count: " + attributesCount + "</td></tr>"
             + "</table><br/>";
         for (int i = 0; i < attributes.length; i++) {
             MethodAttribute attribute = attributes[i];

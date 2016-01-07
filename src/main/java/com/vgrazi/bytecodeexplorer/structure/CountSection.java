@@ -45,6 +45,6 @@ public class CountSection implements ClassFileSection {
 
     @Override
     public String toString() {
-        return Utils.formatAsFourByteHexString(getStartByteIndex()) + " " + name + ":" + countBytes;
+        return getAddress(getStartByteIndex()) + " " + name + ":" + countBytes;
     }
 }

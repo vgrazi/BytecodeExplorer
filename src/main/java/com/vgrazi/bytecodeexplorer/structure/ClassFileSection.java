@@ -1,5 +1,8 @@
 package com.vgrazi.bytecodeexplorer.structure;
 
+import com.vgrazi.bytecodeexplorer.ui.swing.PointSelector;
+import com.vgrazi.bytecodeexplorer.utils.Utils;
+
 /**
  * Created by vgrazi on 8/13/15.
  */
@@ -25,4 +28,11 @@ public interface ClassFileSection {
         return startByteIndex >= getStartByteIndex() && startByteIndex < getStartByteIndex() + length();
     }
 
+    default String getAddress(int index) {
+        String style = "";
+        if (index == PointSelector.getMouseByteIndex()) {
+            style = "style='font-weight:bold'";
+        }
+        return "<span " + style + ">" + Utils.formatAsFourByteHexString(index) + "</span>";
+    }
 }
