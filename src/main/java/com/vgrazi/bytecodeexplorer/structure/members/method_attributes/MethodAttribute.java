@@ -72,8 +72,8 @@ public abstract class MethodAttribute implements ClassFileSection, Cloneable{
      * @param sb
      */
     public void getFormattedNameAndLength(StringBuilder sb) {
-        sb.append("<tr><td>" + Utils.formatAsFourByteHexString(getStartByteIndex()) +     "</td><td>Name index:" +        "</td><td>#" + getAttributeNameIndex() + ": \"" + getAttributeName()).append("\"</td></tr>");
-        sb.append("<tr><td>" + Utils.formatAsFourByteHexString(getStartByteIndex() + 2) + "</td><td>Attributes length:" + "</td><td>" + Utils.getFourBytes(getBytes(), getStartByteIndex() + 2)).append("</td></tr>");
+        sb.append("<tr><td>" + Utils.formatAsFourByteHexString(getStartByteIndex()) +     "</td><td colspan=2>Name index:" +        "</td><td>#" + getAttributeNameIndex() + ": \"" + getAttributeName()).append("\"</td></tr>");
+        sb.append("<tr><td>" + Utils.formatAsFourByteHexString(getStartByteIndex() + 2) + "</td><td colspan=2>Attributes length:" + "</td><td>" + Utils.getFourBytes(getBytes(), getStartByteIndex() + 2)).append("</td></tr>");
     }
 
     @Override

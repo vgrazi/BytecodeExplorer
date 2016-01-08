@@ -51,11 +51,11 @@ public class BytecodeInstructionDecompiler {
         i+= increment;
     }
 
-    return "<table class='table table-striped table-condensed'>" + instructions + "</table>";
+    return instructions.toString();
 }
 
 private static String getCodeString(int lineNumber, byte bite, String instruction, byte[] bytes, int index, int bytecount) {
-    return "<tr><td class='decompile-row'>" + lineNumber + ":</td><td  class='decompile-bite'>" + Utils.formatAsOneByteHexString(bite) + "</td><td class='decompile-instruction'>" + instruction  + "</td><td  class='decompile-args'>" +
+    return "<tr><td>" + Utils.getAddress(index - 1) + "</td><td style='width:30px;' class='decompile-row'>" + lineNumber + ":</td><td  class='decompile-bite'>" + Utils.formatAsOneByteHexString(bite) + "</td><td class='decompile-instruction'>" + instruction  + "</td><td  class='decompile-args'>" +
         Utils.formatAsHexStringFromArray(bytes, index, bytecount) +
         "</td></tr>";
 }

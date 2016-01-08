@@ -3,6 +3,7 @@ package com.vgrazi.bytecodeexplorer.utils;
 import com.vgrazi.bytecodeexplorer.structure.ConstantPoolSection;
 import com.vgrazi.bytecodeexplorer.structure.constantTypes.ConstantType;
 import com.vgrazi.bytecodeexplorer.structure.constantTypes.ConstantUTF8;
+import com.vgrazi.bytecodeexplorer.ui.swing.PointSelector;
 
 import java.util.List;
 
@@ -42,7 +43,7 @@ public class Utils {
 
     public static String formatAsOneByteHexString(int value) {
         String format = String.format("%02X", value);
-        return format.substring(0, 2);
+        return format.substring(format.length()-2);
     }
 
     public static String formatAsTwoByteHexString(int value) {
@@ -105,6 +106,15 @@ public class Utils {
         }
         return string;
     }
+
+    public static String getAddress(int index) {
+        String style = "";
+        if (index == PointSelector.getMouseByteIndex()) {
+            style = "style='font-weight:bold'";
+        }
+        return "<span " + style + ">" + Utils.formatAsFourByteHexString(index) + "</span>";
+    }
+
 
     public static String getDirectString(int index) {
         List<ConstantType> constants = ConstantPoolSection.getConstants();

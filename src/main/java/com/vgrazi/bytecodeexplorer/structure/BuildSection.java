@@ -27,6 +27,6 @@ public class BuildSection implements ClassFileSection {
     }
 
     public String toString() {
-        return getAddress(startByte) + " " + kind + " build number " + Utils.formatAsFourByteHexString(build);
+        return Utils.getAddress(startByte) + " " + kind + " build number " + Utils.formatAsFourByteHexString(build);
     }
 }

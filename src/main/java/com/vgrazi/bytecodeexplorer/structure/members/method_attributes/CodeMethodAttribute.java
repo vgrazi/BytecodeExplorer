@@ -31,13 +31,14 @@ public class CodeMethodAttribute extends MethodAttribute {
 
     @Override
     public String toString() {
+//        StringBuilder sb = new StringBuilder("<table border=1>");
         StringBuilder sb = new StringBuilder("<table>");
 
         getFormattedNameAndLength(sb);
-        sb.append("<tr><td>" + Utils.formatAsFourByteHexString(getStartByteIndex() + 6) + "</td><td>Max stack:" +         "</td><td>" + Utils.getTwoBytes(getBytes(), getStartByteIndex() + 6)).append("</td></tr>");
-        sb.append("<tr><td>" + Utils.formatAsFourByteHexString(getStartByteIndex() + 8) + "</td><td>Max locals:" +        "</td><td>" + Utils.getTwoBytes(getBytes(), getStartByteIndex() + 8)).append("</td></tr>");
+        sb.append("<tr><td>" + Utils.formatAsFourByteHexString(getStartByteIndex() + 6) + "</td><td colspan=2>Max stack:" +         "</td><td>" + Utils.getTwoBytes(getBytes(), getStartByteIndex() + 6)).append("</td></tr>");
+        sb.append("<tr><td>" + Utils.formatAsFourByteHexString(getStartByteIndex() + 8) + "</td><td colspan=2>Max locals:" +        "</td><td>" + Utils.getTwoBytes(getBytes(), getStartByteIndex() + 8)).append("</td></tr>");
         int codeLength = Utils.getFourBytes(getBytes(), getStartByteIndex() + 10);
-        sb.append("<tr><td>" + Utils.formatAsFourByteHexString(getStartByteIndex() + 10) + "</td><td>Code length" +        "</td><td>" + codeLength).append("</td></tr>");
+        sb.append("<tr><td>" + Utils.formatAsFourByteHexString(getStartByteIndex() + 10) + "</td><td colspan=2>Code length" +        "</td><td>" + codeLength).append("</td></tr>");
         sb.append(BytecodeInstructionDecompiler.decompile(getStartByteIndex()+14, getBytes(), codeLength));
         sb.append("</table>");
 

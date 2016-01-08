@@ -59,11 +59,11 @@ public class MethodSection implements ClassFileSection {
         String name = Utils.getDirectString(nameIndex);
         String descriptor = Utils.getDirectString(descriptorIndex);
         String rval = "Method:<br/>" +
-            "<table>" +
-            "<tr><td class='method-byte-address'>" + getAddress(startByteIndex + 0) + "</td><td class='method-byte-address'>" + Utils.formatAsHexString(accessFlags) + "</td><td>Access flags:" + Utils.formatAsBinary(accessFlags) + "</td></tr>" +
-            "<tr><td class='method-byte-address'>" + getAddress(startByteIndex + 2) + "</td><td class='method-byte-address'>" + Utils.formatAsHexString(nameIndex) + "</td><td>#" + nameIndex + " " + name + "</td></tr>" +
-            "<tr><td class='method-byte-address'>" + getAddress(startByteIndex + 4) + "</td><td class='method-byte-address'>" + Utils.formatAsHexString(descriptorIndex) + "</td><td>#" + descriptorIndex + " " + descriptor + "</td></tr>" +
-            "<tr><td class='method-byte-address'>" + getAddress(startByteIndex + 6) + "</td><td class='method-byte-address'>" + Utils.formatAsHexString(attributesCount) + "</td><td>Attributes count: " + attributesCount + "</td></tr>"
+            "<table style='table-layout:fixed'>" +// border=1>" +
+            "<tr><td class='method-byte-address'>" + Utils.getAddress(startByteIndex + 0) + "</td><td class='method-byte-address'>" + Utils.formatAsHexString(accessFlags) + "</td><td>Access flags:" + Utils.formatAsBinary(accessFlags) + "</td></tr>" +
+            "<tr><td class='method-byte-address'>" + Utils.getAddress(startByteIndex + 2) + "</td><td class='method-byte-address'>" + Utils.formatAsHexString(nameIndex) + "</td><td>#" + nameIndex + " " + name + "</td></tr>" +
+            "<tr><td class='method-byte-address'>" + Utils.getAddress(startByteIndex + 4) + "</td><td class='method-byte-address'>" + Utils.formatAsHexString(descriptorIndex) + "</td><td>#" + descriptorIndex + " " + descriptor + "</td></tr>" +
+            "<tr><td class='method-byte-address'>" + Utils.getAddress(startByteIndex + 6) + "</td><td class='method-byte-address'>" + Utils.formatAsHexString(attributesCount) + "</td><td>Attributes count: " + attributesCount + "</td></tr>"
             + "</table><br/>";
         for (int i = 0; i < attributes.length; i++) {
             MethodAttribute attribute = attributes[i];
@@ -71,7 +71,7 @@ public class MethodSection implements ClassFileSection {
         }
 
         rval +=
-            "<table>" +
+            "<table>" +// border=1>" +
                 "<tr><td><span style='font-weight:" + ((accessFlags & 0x0001) != 0 ? "bold'" : "normal'") + ">ACC_PUBLIC      </span></td><td> 0x0001 </td><td>Declared public; may be accessed from outside its package.</td></tr>" +
                 "<tr><td><span style='font-weight:" + ((accessFlags & 0x0002) != 0 ? "bold'" : "normal'") + ">ACC_PRIVATE     </span></td><td> 0x0002 </td><td>Declared private; accessible only within the defining class." +
                 "<tr><td><span style='font-weight:" + ((accessFlags & 0x0004) != 0 ? "bold'" : "normal'") + ">ACC_PROTECTED   </span></td><td> 0x0004 </td><td>Declared protected; may be accessed within subclasses." +

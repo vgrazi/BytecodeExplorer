@@ -28,6 +28,6 @@ public class MagicNumberSection implements ClassFileSection {
 
     public String toString() {
         int index = getStartByteIndex();
-        return getAddress(index) + " " + Utils.formatAsFourByteHexString(magicNumber);
+        return Utils.getAddress(index) + " " + Utils.formatAsFourByteHexString(magicNumber);
     }
 }
