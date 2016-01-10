@@ -51,7 +51,7 @@ public abstract class ConstantType implements ClassFileSection, Cloneable{
     }
 
     protected String getFormattedAddressAndConstantIndex() {
-        return Utils.getAddress(getStartByteIndex()) + " " + String.format("(#%d) ", getIndex());
+        return Utils.formatAsFourByteHexString(getStartByteIndex()) + " " + String.format("(#%d) ", getIndex());
     }
 
 }

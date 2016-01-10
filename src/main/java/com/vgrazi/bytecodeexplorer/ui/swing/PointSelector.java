@@ -106,6 +106,19 @@ public class PointSelector implements MouseListener, MouseMotionListener{
         return mouseByteIndex;
     }
 
+
+    public static String getStyleForByte(int index, int count) {
+        String style = "";
+        if (getMouseByteIndex() >= index && getMouseByteIndex() < index + count ) {
+            style = "font-weight:bold";
+        }
+        else {
+            style = "font-weight:normal";
+        }
+        return style;
+    }
+
+
     @Override
     public void mouseEntered(MouseEvent e) {
         setInside(true);

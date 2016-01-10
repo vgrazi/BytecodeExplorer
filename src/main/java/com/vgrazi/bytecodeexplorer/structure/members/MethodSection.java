@@ -65,8 +65,7 @@ public class MethodSection implements ClassFileSection {
             "<tr><td class='method-byte-address'>" + Utils.getAddress(startByteIndex + 4) + "</td><td class='method-byte-address'>" + Utils.formatAsHexString(descriptorIndex) + "</td><td>#" + descriptorIndex + " " + descriptor + "</td></tr>" +
             "<tr><td class='method-byte-address'>" + Utils.getAddress(startByteIndex + 6) + "</td><td class='method-byte-address'>" + Utils.formatAsHexString(attributesCount) + "</td><td>Attributes count: " + attributesCount + "</td></tr>"
             + "</table><br/>";
-        for (int i = 0; i < attributes.length; i++) {
-            MethodAttribute attribute = attributes[i];
+        for (MethodAttribute attribute : attributes) {
             rval += attribute.toString() + "<br/>";
         }
 

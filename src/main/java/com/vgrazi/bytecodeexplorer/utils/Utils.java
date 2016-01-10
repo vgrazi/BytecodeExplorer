@@ -29,6 +29,13 @@ public class Utils {
         return value;
     }
 
+    public static int getOneByte(byte[] bytes, int index) {
+        int value =
+                ((int) bytes[index]) & 0xff;
+
+        return value;
+    }
+
     public static void printConstants(List<ConstantType> constants) {
         for (int i = 0; i < constants.size(); i++) {
             ConstantType constantType = constants.get(i);

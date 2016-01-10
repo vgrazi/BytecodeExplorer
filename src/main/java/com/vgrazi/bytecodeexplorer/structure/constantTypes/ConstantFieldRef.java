@@ -1,5 +1,6 @@
 package com.vgrazi.bytecodeexplorer.structure.constantTypes;
 
+import com.vgrazi.bytecodeexplorer.ui.swing.PointSelector;
 import com.vgrazi.bytecodeexplorer.utils.Utils;
 
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.List;
  */
 public class ConstantFieldRef extends ConstantType {
 
+    private byte[] bytes;
     private int startByteIndex;
     private int classIndex;
     private int nameAndTypeIndex;
@@ -25,22 +27,21 @@ public class ConstantFieldRef extends ConstantType {
 
     @Override
     public void setData(byte[] bytes, int index) {
+        this.bytes = bytes;
         this.startByteIndex = index;
         this.classIndex = Utils.getTwoBytes(bytes, index + 1);
         this.nameAndTypeIndex = Utils.getTwoBytes(bytes, index + 3);
     }
 
     public String toString() {
-        String string = getFormattedAddressAndConstantIndex() +
-            "Fieldref\t\t" +
-            "<span style='color:blue'>#" + classIndex + "</span>." +
-            "<span style='color:red'>#" + nameAndTypeIndex  + "</span>";
         List<ConstantType> constants = getConstants();
-        if (constants != null) {
-            string += "<br/>" +
-                "<span style='color:blue'>" + constants.get(classIndex - 1) + "</span><br/>" +
-                "<span style='color:red'>" + constants.get(nameAndTypeIndex - 1) + "</span><br/>";
-        }
+        String string = getFormattedAddressAndConstantIndex() +
+            "<span style='" + PointSelector.getStyleForByte(startByteIndex, 1) +"'>" + Utils.formatAsOneByteHexString(getTag()) + ": Field ref</span><br/>" +
+            " <span style='color:blue; " + PointSelector.getStyleForByte(startByteIndex + 1, 1) + "'>" + Utils.formatAsOneByteHexString(Utils.getOneByte(bytes, startByteIndex + 1)) + "</span>" +
+            " <span style='color:blue; " + PointSelector.getStyleForByte(startByteIndex + 2, 1) + "'>" + Utils.formatAsOneByteHexString(Utils.getOneByte(bytes, startByteIndex + 2)) + "</span>=(#" + classIndex + ") " + ((ConstantClass) constants.get(classIndex - 1)).getConstantValue() +
+            "</span><br/>" +
+            " <span style='color:red; " + PointSelector.getStyleForByte(startByteIndex + 3, 1) + "'>" + Utils.formatAsOneByteHexString(Utils.getOneByte(bytes, startByteIndex + 3)) + "</span>" +
+            " <span style='color:red; " + PointSelector.getStyleForByte(startByteIndex + 4, 1) + "'>" + Utils.formatAsOneByteHexString(Utils.getOneByte(bytes, startByteIndex + 4)) + "</span>=(#" + nameAndTypeIndex + ") " + ((ConstantNameAndTypeInfo)constants.get(nameAndTypeIndex - 1)).getValue() + "</span>";
         return string;
     }
 
