@@ -10,6 +10,7 @@ package com.vgrazi.bytecodeexplorer.structure.members;
 
 import com.vgrazi.bytecodeexplorer.structure.ClassFileSection;
 import com.vgrazi.bytecodeexplorer.structure.members.method_attributes.MethodAttribute;
+import com.vgrazi.bytecodeexplorer.ui.swing.PointSelector;
 import com.vgrazi.bytecodeexplorer.utils.MethodAttributeFactory;
 import com.vgrazi.bytecodeexplorer.utils.Utils;
 
@@ -58,13 +59,49 @@ public class MethodSection implements ClassFileSection {
     public String toString() {
         String name = Utils.getDirectString(nameIndex);
         String descriptor = Utils.getDirectString(descriptorIndex);
+        String style = PointSelector.getStyleForByte(startByteIndex, 2);
         String rval = "Method:<br/>" +
             "<table style='table-layout:fixed'>" +// border=1>" +
-            "<tr><td class='method-byte-address'>" + Utils.getAddress(startByteIndex + 0) + "</td><td class='method-byte-address'>" + Utils.formatAsHexString(accessFlags) + "</td><td>Access flags:" + Utils.formatAsBinary(accessFlags) + "</td></tr>" +
-            "<tr><td class='method-byte-address'>" + Utils.getAddress(startByteIndex + 2) + "</td><td class='method-byte-address'>" + Utils.formatAsHexString(nameIndex) + "</td><td>#" + nameIndex + " " + name + "</td></tr>" +
-            "<tr><td class='method-byte-address'>" + Utils.getAddress(startByteIndex + 4) + "</td><td class='method-byte-address'>" + Utils.formatAsHexString(descriptorIndex) + "</td><td>#" + descriptorIndex + " " + descriptor + "</td></tr>" +
-            "<tr><td class='method-byte-address'>" + Utils.getAddress(startByteIndex + 6) + "</td><td class='method-byte-address'>" + Utils.formatAsHexString(attributesCount) + "</td><td>Attributes count: " + attributesCount + "</td></tr>"
+
+            "<tr><td class='method-byte-address'>" + Utils.formatAsFourByteHexString(startByteIndex + 0) +
+            "</td>";
+
+        rval +=
+            "<td class='method-byte-address'" +
+                "<span style='" + style + "'>" +
+                Utils.formatAsHexString(accessFlags) + "</span></td><td>" +
+                "<span style='" + style + "'>" +
+                "Access flags:" + Utils.formatAsBinary(accessFlags) + "</span></td></tr>";
+
+        style = PointSelector.getStyleForByte(startByteIndex + 2, 2);
+
+        rval += "<tr><td class='method-byte-address'" +
+            ">" + Utils.formatAsFourByteHexString(startByteIndex + 2) +
+            "</td><td class='method-byte-address'" +
+            "<span style='" + style + "'>" +
+            Utils.formatAsHexString(nameIndex) + "</span></td><td>" +
+            "<span style='" + style + "'>" +
+            "#" + nameIndex + " " + name + "</span></td></tr>";
+
+        style = PointSelector.getStyleForByte(startByteIndex + 4, 2);
+        rval += "<tr><td class='method-byte-address'>" +
+            Utils.formatAsFourByteHexString(startByteIndex + 4) +
+            "</td><td class='method-byte-address' " +
+            "<span style='" + style + "'>" +
+            Utils.formatAsHexString(descriptorIndex) + "</span></td><td>" +
+            "<span style='" + style + "'>" +
+            "#" + descriptorIndex + " " + descriptor + "</span></td></tr>";
+
+        style = PointSelector.getStyleForByte(startByteIndex + 6, 2);
+        rval += "<tr><td class='method-byte-address'>" + Utils.formatAsFourByteHexString(startByteIndex + 6) +
+            "</td><td class='method-byte-address'" +
+            "<span style='" + style + "'>" +
+            Utils.formatAsHexString(attributesCount) + "</span></td><td>" +
+            "<span style='" + style + "'>" +
+            "Attributes count: " + attributesCount + "</span></td></tr>"
+
             + "</table><br/>";
+
         for (MethodAttribute attribute : attributes) {
             rval += attribute.toString() + "<br/>";
         }

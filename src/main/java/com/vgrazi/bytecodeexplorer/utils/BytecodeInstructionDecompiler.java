@@ -1,5 +1,7 @@
 package com.vgrazi.bytecodeexplorer.utils;
 
+import com.vgrazi.bytecodeexplorer.ui.swing.PointSelector;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -55,11 +57,27 @@ public class BytecodeInstructionDecompiler {
 }
 
 private static String getCodeString(int lineNumber, byte bite, String instruction, byte[] bytes, int index, int bytecount) {
-    return "<tr><td>" + Utils.getAddress(index - 1) + "</td><td style='width:30px;' class='decompile-row'>" + lineNumber + ":</td><td  class='decompile-bite'>" + Utils.formatAsOneByteHexString(bite) + "</td><td class='decompile-instruction'>" + instruction  + "</td><td  class='decompile-args'>" +
-        Utils.formatAsHexStringFromArray(bytes, index, bytecount) +
-        "</td></tr>";
+    String style = PointSelector.getStyleForByte(index - 1, 1);
+    String rval = "<tr>" +
+        "<td>" + Utils.formatAsFourByteHexString(index - 1) + "</td>" +
+        "<td style='width:30px;' class='decompile-row'>" + lineNumber + ":</td>" +
+        "<td  class='decompile-bite'>" +
+        "<span style='" + style + "'>" +
+        Utils.formatAsOneByteHexString(bite) + "</span></td>" +
+        "<td class='decompile-instruction'>" +
+        "<span style='" + style + "'>" + instruction + "</span></td>";
+
+
+    rval += "<td  class='decompile-args'>";
+    for (int i = 0; i < bytecount; i++) {
+        style = PointSelector.getStyleForByte(index + i, 1);
+        rval += "<span style='" + style + "'>" + Utils.formatAsOneByteHexString(Utils.getOneByte(bytes, index + i)) + "</span></td>";
+    }
+    rval += "</tr>";
+
+    return rval;
 }
-    
+
     private static void populateInstructionMaps() {
         map.put((byte) 0x01, "aconst_null");
         map.put((byte) 0x02, "iconst_m1");

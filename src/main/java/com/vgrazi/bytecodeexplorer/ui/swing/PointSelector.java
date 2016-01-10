@@ -110,7 +110,7 @@ public class PointSelector implements MouseListener, MouseMotionListener{
     public static String getStyleForByte(int index, int count) {
         String style = "";
         if (getMouseByteIndex() >= index && getMouseByteIndex() < index + count ) {
-            style = "font-weight:bold";
+            style = "font-weight:bold; color:#00ff00; background-color:black";
         }
         else {
             style = "font-weight:normal";

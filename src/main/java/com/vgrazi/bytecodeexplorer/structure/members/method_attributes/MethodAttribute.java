@@ -7,6 +7,7 @@ package com.vgrazi.bytecodeexplorer.structure.members.method_attributes;
 //}
 
 import com.vgrazi.bytecodeexplorer.structure.ClassFileSection;
+import com.vgrazi.bytecodeexplorer.ui.swing.PointSelector;
 import com.vgrazi.bytecodeexplorer.utils.Utils;
 
 /**
@@ -72,8 +73,18 @@ public abstract class MethodAttribute implements ClassFileSection, Cloneable{
      * @param sb
      */
     public void getFormattedNameAndLength(StringBuilder sb) {
-        sb.append("<tr><td>" + Utils.formatAsFourByteHexString(getStartByteIndex()) +     "</td><td colspan=2>Name index:" +        "</td><td>#" + getAttributeNameIndex() + ": \"" + getAttributeName()).append("\"</td></tr>");
-        sb.append("<tr><td>" + Utils.formatAsFourByteHexString(getStartByteIndex() + 2) + "</td><td colspan=2>Attributes length:" + "</td><td>" + Utils.getFourBytes(getBytes(), getStartByteIndex() + 2)).append("</td></tr>");
+        String style = PointSelector.getStyleForByte(startByteIndex, 2);
+        sb.append("<tr><td>" + Utils.formatAsFourByteHexString(getStartByteIndex()) +     "</td>" +
+            "<td><span style='" + style +"'>" +
+            "Name index:" +        "</span></td><td>" +
+            "<td><span style='" + style +"'>" +
+            "#" + getAttributeNameIndex() + ": \"" + getAttributeName()).append("\"</span></td></tr>");
+
+        style = PointSelector.getStyleForByte(startByteIndex + 2, 4);
+        sb.append("<tr><td>" + Utils.formatAsFourByteHexString(getStartByteIndex() + 2) + "</td><td colspan=2><span style='" + style +"'>" +
+            "Attributes length:" + "</span></td><td>" +
+            "<span style='" + style +"'>" +
+            Utils.getFourBytes(getBytes(), getStartByteIndex() + 2)).append("</span></td></tr>");
     }
 
     @Override
