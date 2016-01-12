@@ -66,18 +66,13 @@ public class ConstantUTF8 extends ConstantType {
         if(mouseByteIndex >= startByteIndex + 3 && mouseByteIndex <= startByteIndex + 2 + stringLength)
         {
             style = PointSelector.getStyleForByte(mouseByteIndex, 1);
-            if (mouseByteIndex - startByteIndex - 3 >= 0)
-            {
-                rval += stringValue.substring(0, mouseByteIndex - startByteIndex - 3).replaceAll("<", "&lt;");
-            }
+
+            rval += stringValue.substring(0, mouseByteIndex - startByteIndex - 3).replaceAll("<", "&lt;");
 
             rval += "<span style='" + style + "'>" +
                 stringValue.substring(mouseByteIndex - startByteIndex -3, mouseByteIndex - startByteIndex -2).replaceAll("<", "&lt;") + "</span>";
 
-            if (mouseByteIndex - startByteIndex -2 >=0 && mouseByteIndex - startByteIndex -2 < stringLength)
-            {
-                rval += stringValue.substring(mouseByteIndex - startByteIndex -2).replaceAll("<", "&lt;");
-            }
+            rval += stringValue.substring(mouseByteIndex - startByteIndex -2).replaceAll("<", "&lt;");
         }
         else {
             rval += stringValue.replaceAll("<", "&lt;");

@@ -111,6 +111,9 @@ public class Utils {
         if (string.length() < 32) {
             string = "00000000000000000000000000000000".substring(string.length()) + string;
         }
+        else if(string.length() > 32){
+            string = string.substring(string.length() - 32);
+        }
         return string;
     }
 

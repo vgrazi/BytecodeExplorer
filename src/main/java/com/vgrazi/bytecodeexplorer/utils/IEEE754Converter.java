@@ -84,14 +84,11 @@ Mantissa = 1 + sum(a(n)/(2^n))
     }
 
     public static String getExplanation(int IEE754, double value, byte signBit, long exponent, double mantissa, long mantissaBytes) {
-        String IEE754HexString = Utils.formatAsHexString(IEE754);
-        String IEE754BinaryString = Utils.formatAs32BitSectionedBinary(IEE754);
         String IEEE754Regrouped = IEEE754Converter.formatBinaryAsIEEE754(IEE754);
         String exponentString = Utils.formatAsFourByteHexString(exponent + 127);
         String mantissaString = Utils.formatAsFourByteHexString(mantissaBytes);
         return
-            IEE754HexString + " =<br/>" +
-                "&nbsp;" + IEE754BinaryString + "=<br>" +
+            "<br/>" +
                 IEEE754Regrouped + "<br>" +
                 "<font color='blue'>" + signBit + " sign bit:" + signBit + "</font><br/>" +
                 "<font color='red'>" + exponentString + " exponent:" + (exponent + 127) + "-127=" + exponent + "</font><br/>" +
