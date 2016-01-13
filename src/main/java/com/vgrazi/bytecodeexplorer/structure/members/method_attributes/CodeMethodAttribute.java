@@ -16,6 +16,7 @@ package com.vgrazi.bytecodeexplorer.structure.members.method_attributes;
 //    attribute_info attributes[attributes_count];
 //}
 
+import com.vgrazi.bytecodeexplorer.ui.swing.PointSelector;
 import com.vgrazi.bytecodeexplorer.utils.BytecodeInstructionDecompiler;
 import com.vgrazi.bytecodeexplorer.utils.Utils;
 
@@ -34,11 +35,14 @@ public class CodeMethodAttribute extends MethodAttribute {
 //        StringBuilder sb = new StringBuilder("<table border=1>");
         StringBuilder sb = new StringBuilder("<table>");
 
-        getFormattedNameAndLength(sb);
-        sb.append("<tr><td>" + Utils.formatAsFourByteHexString(getStartByteIndex() + 6) + "</td><td colspan=2>Max stack:" +         "</td><td>" + Utils.getTwoBytes(getBytes(), getStartByteIndex() + 6)).append("</td></tr>");
-        sb.append("<tr><td>" + Utils.formatAsFourByteHexString(getStartByteIndex() + 8) + "</td><td colspan=2>Max locals:" +        "</td><td>" + Utils.getTwoBytes(getBytes(), getStartByteIndex() + 8)).append("</td></tr>");
         int codeLength = Utils.getFourBytes(getBytes(), getStartByteIndex() + 10);
-        sb.append("<tr><td>" + Utils.formatAsFourByteHexString(getStartByteIndex() + 10) + "</td><td colspan=2>Code length" +        "</td><td>" + codeLength).append("</td></tr>");
+        getFormattedNameAndLength(sb);
+        String style1 = PointSelector.getStyleForByte(getStartByteIndex() + 6, 2);
+        String style2 = PointSelector.getStyleForByte(getStartByteIndex() + 8, 2);
+        String style3 = PointSelector.getStyleForByte(getStartByteIndex() + 10, 4);
+        sb.append("<tr><td>" + Utils.formatAsFourByteHexString(getStartByteIndex() + 6) + "</td><td colspan=2><span style='" + style1 + "'>Max stack:"   +        "</span></td><td><span style='" + style1 + "'>" + Utils.getTwoBytes(getBytes(), getStartByteIndex() + 6)).append("</span></td></tr>");
+        sb.append("<tr><td>" + Utils.formatAsFourByteHexString(getStartByteIndex() + 8) + "</td><td colspan=2><span style='" + style2 + "'>Max locals:"  +        "</span></td><td><span style='" + style2 + "'>" + Utils.getTwoBytes(getBytes(), getStartByteIndex() + 8)).append("</span></td></tr>");
+        sb.append("<tr><td>" + Utils.formatAsFourByteHexString(getStartByteIndex() + 10) +"</td><td colspan=2><span style='" + style3 + "'>Code length"  +        "</span></td><td><span style='" + style3 + "'>" + codeLength).append("</span></td></tr>");
         sb.append(BytecodeInstructionDecompiler.decompile(getStartByteIndex()+14, getBytes(), codeLength));
         sb.append("</table>");
 

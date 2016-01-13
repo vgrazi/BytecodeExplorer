@@ -14,7 +14,7 @@ monitor the stack and program registers.
 
 ## Usage
 To launch the Java version build it using Maven, then run java com.vgrazi.bytecodeexplorer.BytecodeExplorer target/classes/com/vgrazi/SampleClass.class
-(Other classes may or may not work at this time)
+(Other classes may or may not work at this time). There is a sample.sh and sample.bat shell script you can use to build and launch that.
 
 
 This easiest way to get the browser based version going is to load the project in IntelliJ (Community edition will do for execution, but Ultimate Edition or 
