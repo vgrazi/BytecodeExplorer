@@ -19,6 +19,7 @@ To launch the Java version build it using Maven, then run java com.vgrazi.byteco
 ## Screenshot
 ![alt text](bytecode-explorer.png "BytecodeExplorer")
 
+## Browser based version
 This easiest way to get the browser based version going is to load the project in IntelliJ (Community edition will do for execution, but Ultimate Edition or 
 WebStorm recommended for coding). Open the file bytecode-explorer.html in IntelliJ
 and mouse over the top right of the editor screen. A list of browser icons will appear. Choose Chrome (I have not tested it in other browsers yet)
@@ -28,6 +29,8 @@ The URL http://localhost:63342/Bytecode-Explorer/src/main/html/bytecode-explorer
 Select a class file (start with something simple, for example com.vgrazi.SampleClass.class) in the "Choose files" selector.
 
 When the class file opens in the hex editor in the left browser pane, mouse over the hex portion to see the disassembled code in the right frame of the browser page.
+
+The JavaScript version will probably not be enhanced in the future
 
 
 
