@@ -8,4 +8,9 @@ public class LocalVariableTableMethodAttribute extends MethodAttribute {
     public String getIdentifier() {
         return "LocalVariableTable";
     }
+
+    @Override
+    public String toString() {
+        return getIdentifier() + " not implemented";
+    }
 }
