@@ -46,7 +46,7 @@ public class MethodAttributeFactory {
             rval = (MethodAttribute) methodAttribute.clone();
         }
         else {
-            rval = new UnsupportedMethodAttribute();
+            rval = new UnsupportedMethodAttribute(attributeName);
         }
         rval.setData(bytesArray, startByte);
         return rval;

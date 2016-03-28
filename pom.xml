@@ -12,6 +12,15 @@
         <code.level>1.8</code.level>
         <version.plugin.compiler>3.1</version.plugin.compiler>
     </properties>
+    <dependencies>
+        <dependency>
+            <groupId>com.sun</groupId>
+            <artifactId>tools</artifactId>
+            <version>1.4.2</version>
+            <scope>system</scope>
+            <systemPath>${java.home}/../lib/tools.jar</systemPath>
+        </dependency>
+    </dependencies>
     <build>
         <plugins>
             <plugin>
@@ -23,10 +32,10 @@
                     <source>${code.level}</source>
                     <target>${code.level}</target>
                     <encoding>${project.build.sourceEncoding}</encoding>
+                    <debug>true</debug>
+                    <debuglevel>lines</debuglevel>
                 </configuration>
             </plugin>
         </plugins>
     </build>
-
-
 </project>

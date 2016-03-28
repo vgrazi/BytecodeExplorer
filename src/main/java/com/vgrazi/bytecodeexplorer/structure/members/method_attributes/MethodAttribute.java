@@ -82,7 +82,7 @@ public abstract class MethodAttribute implements ClassFileSection, Cloneable{
 
         style = PointSelector.getStyleForByte(startByteIndex + 2, 4);
         sb.append("<tr><td>" + Utils.formatAsFourByteHexString(getStartByteIndex() + 2) + "</td><td colspan=2><span style='" + style +"'>" +
-            "Attributes length:" + "</span></td><td>" +
+            "Attribute length:" + "</span></td><td>" +
             "<span style='" + style +"'>" +
             Utils.getFourBytes(getBytes(), getStartByteIndex() + 2)).append("</span></td></tr>");
     }

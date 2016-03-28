@@ -5,6 +5,7 @@ import com.vgrazi.bytecodeexplorer.ui.swing.BytecodeRenderer;
 
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 
 /**
@@ -22,7 +23,9 @@ public class BytecodeExplorer {
     }
 
     private void launch(String file) throws IOException {
-        byte[] bytes = Files.readAllBytes(Paths.get(file));
+        Path path = Paths.get(file);
+        System.out.println("Reading class file [" + path.toAbsolutePath() + "]");
+        byte[] bytes = Files.readAllBytes(path);
 
         classFile = new ClassFile(bytes);
         new BytecodeRenderer(classFile);

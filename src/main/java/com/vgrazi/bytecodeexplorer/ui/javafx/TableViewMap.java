@@ -99,9 +99,9 @@ public class TableViewMap extends Application {
         stage.show();
     }
 
-    private ObservableList<Map> generateDataInMap() {
+    private ObservableList<Map<String, String>> generateDataInMap() {
         int max = 10;
-        ObservableList<Map> allData = FXCollections.observableArrayList();
+        ObservableList<Map<String, String>> allData = FXCollections.observableArrayList();
         for (int i = 1; i < max; i++) {
             Map<String, String> dataRow = new HashMap<>();
             String value1 = "A" + i;

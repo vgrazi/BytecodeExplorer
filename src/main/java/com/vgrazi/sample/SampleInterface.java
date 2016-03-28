@@ -1,4 +1,4 @@
-package com.vgrazi;
+package com.vgrazi.sample;
 
 /**
  * Created by vgrazi on 8/23/15.

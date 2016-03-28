@@ -48,6 +48,9 @@ public class ConstantTypeFactory {
 
     public static ConstantType createConstantType(byte tag) {
         ConstantType constantType = constantTypeMap.get(tag);
+        if(constantType == null) {
+            throw new IllegalArgumentException("Constant type ["+ tag + "] not mapped");
+        }
         ConstantType rval = (ConstantType) constantType.clone();
         rval.setIndex(constantIndex++);
         return rval;

@@ -1,4 +1,4 @@
-package com.vgrazi;
+package com.vgrazi.sample;
 
 import java.io.Serializable;
 import java.lang.reflect.Method;
